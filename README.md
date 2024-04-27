@@ -15,55 +15,56 @@
 11. [Comments](#comments)
 12. [Translation](#translation)
 
-## Introduction
 
-![Humorous image of software quality estimation as a count of how many expletives
-you shout when reading code](https://www.osnews.com/images/comics/wtfm.jpg)
+## Giới thiệu
 
-Software engineering principles, from Robert C. Martin's book
+![Hình ảnh hài hước đánh giá chất lượng phần mềm đếm được bao nhiêu từ tục tĩu
+bạn hét lên khi đọc mã](https://www.osnews.com/images/comics/wtfm.jpg)
+
+Nguyên tắc công nghệ phần mềm, từ cuốn sách của Robert C. Martin
 [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-adapted for JavaScript. This is not a style guide. It's a guide to producing
-[readable, reusable, and refactorable](https://github.com/ryanmcdermott/3rs-of-software-architecture) software in JavaScript.
+được điều chỉnh cho JavaScript. Đây không phải là một hướng dẫn về phong cách. Đó là hướng dẫn sản xuất
+Phần mềm [có thể đọc, tái sử dụng và tái cấu trúc](https://github.com/ryanmcdermott/3rs-of-software-architecture) trong JavaScript.
 
-Not every principle herein has to be strictly followed, and even fewer will be
-universally agreed upon. These are guidelines and nothing more, but they are
-ones codified over many years of collective experience by the authors of
-_Clean Code_.
+Không phải mọi nguyên tắc ở đây đều phải được tuân thủ nghiêm ngặt, và thậm chí còn ít hơn nữa.
+được nhất trí rộng rãi. Đây chỉ là những hướng dẫn và không có gì hơn, nhưng chúng
+những điều được hệ thống hóa qua nhiều năm kinh nghiệm tập thể của các tác giả của
+_Mã sạch_.
 
-Our craft of software engineering is just a bit over 50 years old, and we are
-still learning a lot. When software architecture is as old as architecture
-itself, maybe then we will have harder rules to follow. For now, let these
-guidelines serve as a touchstone by which to assess the quality of the
-JavaScript code that you and your team produce.
+Nghề công nghệ phần mềm của chúng tôi mới chỉ hơn 50 tuổi một chút và chúng tôi đang
+vẫn đang học hỏi rất nhiều. Khi kiến ​​trúc phần mềm cũng cũ như kiến ​​trúc
+có thể khi đó chúng ta sẽ có những quy định khó tuân theo hơn. Bây giờ, hãy để những điều này
+hướng dẫn đóng vai trò là tiêu chuẩn để đánh giá chất lượng của
+Mã JavaScript mà bạn và nhóm của bạn tạo ra.
 
-One more thing: knowing these won't immediately make you a better software
-developer, and working with them for many years doesn't mean you won't make
-mistakes. Every piece of code starts as a first draft, like wet clay getting
-shaped into its final form. Finally, we chisel away the imperfections when
-we review it with our peers. Don't beat yourself up for first drafts that need
-improvement. Beat up the code instead!
+Một điều nữa: biết những điều này sẽ không ngay lập tức giúp bạn trở thành một phần mềm tốt hơn
+nhà phát triển và làm việc với họ trong nhiều năm không có nghĩa là bạn sẽ không đạt được
+những sai lầm. Mỗi đoạn mã đều bắt đầu như bản nháp đầu tiên, giống như đất sét ướt
+được định hình thành dạng cuối cùng của nó. Cuối cùng, chúng tôi khắc phục những điểm không hoàn hảo khi
+chúng tôi xem xét nó với các đồng nghiệp của chúng tôi. Đừng dằn vặt bản thân vì những bản nháp đầu tiên cần thiết
+sự cải tiến. Thay vào đó hãy đánh bại mã!
 
-## **Variables**
+## **Biến**
 
-### Use meaningful and pronounceable variable names
+### Sử dụng tên biến có ý nghĩa và dễ phát âm
 
-**Bad:**
+**Xấu:**
 
 ```javascript
 const yyyymmdstr = moment().format("YYYY/MM/DD");
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
 const currentDate = moment().format("YYYY/MM/DD");
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Use the same vocabulary for the same type of variable
+### Sử dụng cùng một từ vựng cho cùng một loại biến
 
-**Bad:**
+**Xấu:**
 
 ```javascript
 getUserInfo();
@@ -71,48 +72,48 @@ getClientData();
 getCustomerRecord();
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
 getUser();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Use searchable names
+### Sử dụng tên có thể tìm kiếm được
 
-We will read more code than we will ever write. It's important that the code we
-do write is readable and searchable. By _not_ naming variables that end up
-being meaningful for understanding our program, we hurt our readers.
-Make your names searchable. Tools like
-[buddy.js](https://github.com/danielstjules/buddy.js) and
+Chúng ta sẽ đọc nhiều mã hơn chúng ta sẽ viết. Điều quan trọng là mã chúng tôi
+do write có thể đọc được và tìm kiếm được. Bằng cách _not_ đặt tên các biến kết thúc
+có ý nghĩa đối với việc hiểu chương trình của chúng tôi, chúng tôi đã làm tổn thương độc giả của mình.
+Làm cho tên của bạn có thể tìm kiếm được. Công cụ như
+[buddy.js](https://github.com/danielstjules/buddy.js) và
 [ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md)
-can help identify unnamed constants.
+có thể giúp xác định các hằng số chưa được đặt tên.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-// What the heck is 86400000 for?
+// 86400000 là cái quái gì thế?
 setTimeout(blastOff, 86400000);
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-// Declare them as capitalized named constants.
+// Khai báo chúng dưới dạng các hằng có tên được viết hoa.
 const MILLISECONDS_PER_DAY = 60 * 60 * 24 * 1000; //86400000;
 
 setTimeout(blastOff, MILLISECONDS_PER_DAY);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Use explanatory variables
+### Sử dụng các biến giải thích
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const address = "One Infinite Loop, Cupertino 95014";
+địa chỉ const = "Một vòng lặp vô hạn, Cupertino 95014";
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
 saveCityZipCode(
   address.match(cityZipCodeRegex)[1],
@@ -120,104 +121,104 @@ saveCityZipCode(
 );
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-const address = "One Infinite Loop, Cupertino 95014";
+địa chỉ const = "Một vòng lặp vô hạn, Cupertino 95014";
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
-const [_, city, zipCode] = address.match(cityZipCodeRegex) || [];
-saveCityZipCode(city, zipCode);
+const [_, thành phố, zipCode] = address.match(cityZipCodeRegex) || [];
+saveCityZipCode(thành phố, zipCode);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid Mental Mapping
+### Tránh lập bản đồ tư duy
 
-Explicit is better than implicit.
+Rõ ràng là tốt hơn ngầm.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const locations = ["Austin", "New York", "San Francisco"];
-locations.forEach(l => {
+const location = ["Austin", "New York", "San Francisco"];
+địa điểm.forEach(l => {
   doStuff();
   doSomeOtherStuff();
   // ...
   // ...
   // ...
-  // Wait, what is `l` for again?
-  dispatch(l);
+  // Đợi đã, `l` dùng để làm gì?
+  công văn(l);
 });
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-const locations = ["Austin", "New York", "San Francisco"];
-locations.forEach(location => {
+const location = ["Austin", "New York", "San Francisco"];
+location.forEach(location => {
   doStuff();
   doSomeOtherStuff();
   // ...
   // ...
   // ...
-  dispatch(location);
+  công văn(địa điểm);
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Don't add unneeded context
+### Không thêm ngữ cảnh không cần thiết
 
-If your class/object name tells you something, don't repeat that in your
-variable name.
+Nếu tên lớp/đối tượng của bạn cho bạn biết điều gì đó, đừng lặp lại điều đó trong
+tên biến.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const Car = {
+const Xe = {
   carMake: "Honda",
-  carModel: "Accord",
-  carColor: "Blue"
+  xeModel: "Hiệp định",
+  Màu xe: "Xanh"
 };
 
-function paintCar(car, color) {
-  car.carColor = color;
+chức năng sơnCar(xe, màu) {
+  car.carColor = màu sắc;
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-const Car = {
-  make: "Honda",
-  model: "Accord",
-  color: "Blue"
+const Xe = {
+  tạo: "Honda",
+  mô hình: "Hiệp định",
+  màu sắc: "Xanh"
 };
 
-function paintCar(car, color) {
-  car.color = color;
+chức năng sơnCar(xe, màu) {
+  car.color = màu sắc;
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Use default parameters instead of short circuiting or conditionals
+### Sử dụng tham số mặc định thay vì đoản mạch hoặc điều kiện
 
-Default parameters are often cleaner than short circuiting. Be aware that if you
-use them, your function will only provide default values for `undefined`
-arguments. Other "falsy" values such as `''`, `""`, `false`, `null`, `0`, and
-`NaN`, will not be replaced by a default value.
+Các thông số mặc định thường sạch hơn đoản mạch. Hãy nhận biết rằng nếu bạn
+sử dụng chúng, hàm của bạn sẽ chỉ cung cấp các giá trị mặc định cho `không xác định`
+tranh luận. Các giá trị "giả" khác như `''`, `""`, `false`, `null`, `0`, và
+`NaN`, sẽ không được thay thế bằng giá trị mặc định.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function createMicrobrewery(name) {
-  const breweryName = name || "Hipster Brew Co.";
+hàm createMicrobrewery(name) {
+  const nhà máy biaName = tên || "Công ty bia Hipster.";
   // ...
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
 function createMicrobrewery(name = "Hipster Brew Co.") {
@@ -225,44 +226,44 @@ function createMicrobrewery(name = "Hipster Brew Co.") {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **Functions**
+## **Chức năng**
 
-### Function arguments (2 or fewer ideally)
+### Đối số của hàm (lý tưởng là 2 hoặc ít hơn)
 
-Limiting the amount of function parameters is incredibly important because it
-makes testing your function easier. Having more than three leads to a
-combinatorial explosion where you have to test tons of different cases with
-each separate argument.
+Việc giới hạn số lượng tham số của hàm là vô cùng quan trọng vì nó
+làm cho việc kiểm tra chức năng của bạn dễ dàng hơn. Có nhiều hơn ba dẫn đến một
+vụ nổ tổ hợp trong đó bạn phải kiểm tra hàng tấn trường hợp khác nhau với
+từng đối số riêng biệt.
 
-One or two arguments is the ideal case, and three should be avoided if possible.
-Anything more than that should be consolidated. Usually, if you have
-more than two arguments then your function is trying to do too much. In cases
-where it's not, most of the time a higher-level object will suffice as an
-argument.
+Một hoặc hai đối số là trường hợp lý tưởng và nên tránh ba đối số nếu có thể.
+Bất cứ điều gì nhiều hơn thế nên được củng cố. Thông thường, nếu bạn có
+nhiều hơn hai đối số thì hàm của bạn đang cố gắng thực hiện quá nhiều. Trong trường hợp
+ở những nơi không có, hầu hết trường hợp một đối tượng cấp cao hơn sẽ đủ làm
+lý lẽ.
 
-Since JavaScript allows you to make objects on the fly, without a lot of class
-boilerplate, you can use an object if you are finding yourself needing a
-lot of arguments.
+Vì JavaScript cho phép bạn tạo các đối tượng một cách nhanh chóng mà không cần nhiều lớp
+bản soạn sẵn, bạn có thể sử dụng một đối tượng nếu bạn thấy mình cần một
+rất nhiều lý lẽ.
 
-To make it obvious what properties the function expects, you can use the ES2015/ES6
-destructuring syntax. This has a few advantages:
+Để làm rõ những thuộc tính mà hàm mong đợi, bạn có thể sử dụng ES2015/ES6
+cú pháp phá hủy. Điều này có một số lợi thế:
 
-1. When someone looks at the function signature, it's immediately clear what
-   properties are being used.
-2. It can be used to simulate named parameters.
-3. Destructuring also clones the specified primitive values of the argument
-   object passed into the function. This can help prevent side effects. Note:
-   objects and arrays that are destructured from the argument object are NOT
-   cloned.
-4. Linters can warn you about unused properties, which would be impossible
-   without destructuring.
+1. Khi ai đó nhìn vào chữ ký hàm, sẽ hiểu ngay đó là gì
+   tài sản đang được sử dụng.
+2. Nó có thể được sử dụng để mô phỏng các tham số được đặt tên.
+3. Việc hủy cấu trúc cũng sao chép các giá trị nguyên thủy được chỉ định của đối số
+   đối tượng được truyền vào hàm. Điều này có thể giúp ngăn ngừa tác dụng phụ. Ghi chú:
+   các đối tượng và mảng bị hủy cấu trúc khỏi đối tượng đối số KHÔNG
+   nhân bản.
+4. Linters có thể cảnh báo bạn về những tài sản không được sử dụng, điều này là không thể
+   mà không bị phá hủy.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function createMenu(title, body, buttonText, cancellable) {
+hàm createMenu(tiêu đề, nội dung, nútText, có thể hủy) {
   // ...
 }
 
@@ -270,562 +271,562 @@ createMenu("Foo", "Bar", "Baz", true);
 
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function createMenu({ title, body, buttonText, cancellable }) {
+hàm createMenu({ tiêu đề, nội dung, nútText, có thể hủy }) {
   // ...
 }
 
 createMenu({
-  title: "Foo",
-  body: "Bar",
-  buttonText: "Baz",
-  cancellable: true
+  tiêu đề: "Foo",
+  nội dung: "Thanh",
+  nútText: "Baz",
+  có thể hủy: đúng
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Functions should do one thing
+### Hàm chỉ làm một việc
 
-This is by far the most important rule in software engineering. When functions
-do more than one thing, they are harder to compose, test, and reason about.
-When you can isolate a function to just one action, it can be refactored
-easily and your code will read much cleaner. If you take nothing else away from
-this guide other than this, you'll be ahead of many developers.
+Đây là quy tắc quan trọng nhất trong công nghệ phần mềm. Khi chức năng
+làm nhiều việc thì chúng sẽ khó soạn thảo, kiểm tra và lý luận hơn.
+Khi bạn có thể tách một hàm thành một hành động duy nhất, nó có thể được cấu trúc lại
+dễ dàng và mã của bạn sẽ đọc rõ ràng hơn nhiều. Nếu bạn không lấy đi thứ gì khác từ
+hướng dẫn này, ngoài hướng dẫn này, bạn sẽ đi trước nhiều nhà phát triển.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function emailClients(clients) {
-  clients.forEach(client => {
-    const clientRecord = database.lookup(client);
+chức năng emailClients(client) {
+  client.forEach(client => {
+    const clientRecord = cơ sở dữ liệu.lookup(client);
     if (clientRecord.isActive()) {
-      email(client);
+      email khách hàng);
     }
   });
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function emailActiveClients(clients) {
-  clients.filter(isActiveClient).forEach(email);
+hàm emailActiveClients(client) {
+  client.filter(isActiveClient).forEach(email);
 }
 
-function isActiveClient(client) {
-  const clientRecord = database.lookup(client);
-  return clientRecord.isActive();
+hàm isActiveClient(client) {
+  const clientRecord = cơ sở dữ liệu.lookup(client);
+  trả về clientRecord.isActive();
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Function names should say what they do
+### Tên hàm phải nói rõ chức năng của chúng
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function addToDate(date, month) {
+hàm addToDate(ngày, tháng) {
   // ...
 }
 
-const date = new Date();
+const ngày = Ngày mới();
 
-// It's hard to tell from the function name what is added
-addToDate(date, 1);
+// Thật khó để nói từ tên hàm những gì được thêm vào
+addToDate(ngày, 1);
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function addMonthToDate(month, date) {
+hàm addMonthToDate(tháng, ngày) {
   // ...
 }
 
-const date = new Date();
-addMonthToDate(1, date);
+const ngày = Ngày mới();
+addMonthToDate(1, ngày);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Functions should only be one level of abstraction
+### Các hàm chỉ nên có một mức độ trừu tượng
 
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
+Khi bạn có nhiều mức độ trừu tượng, hàm của bạn thường là
+làm quá nhiều. Việc chia nhỏ các chức năng dẫn đến khả năng sử dụng lại và dễ dàng hơn
+thử nghiệm.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function parseBetterJSAlternative(code) {
+hàm phân tích cú phápBetterJSAlternative(code) {
   const REGEXES = [
     // ...
   ];
 
-  const statements = code.split(" ");
-  const tokens = [];
+  câu lệnh const = code.split(" ");
+  mã thông báo const = [];
   REGEXES.forEach(REGEX => {
-    statements.forEach(statement => {
+    câu lệnh.forEach(câu lệnh => {
       // ...
     });
   });
 
   const ast = [];
-  tokens.forEach(token => {
+  token.forEach(token => {
     // lex...
   });
 
-  ast.forEach(node => {
-    // parse...
+  ast.forEach(nút => {
+    // phân tích...
   });
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function parseBetterJSAlternative(code) {
-  const tokens = tokenize(code);
-  const syntaxTree = parse(tokens);
-  syntaxTree.forEach(node => {
-    // parse...
+hàm phân tích cú phápBetterJSAlternative(code) {
+  mã thông báo const = mã thông báo (mã);
+  const cú phápTree = phân tích cú pháp (mã thông báo);
+  cú phápTree.forEach(node ​​=> {
+    // phân tích...
   });
 }
 
-function tokenize(code) {
+hàm tokenize(code) {
   const REGEXES = [
     // ...
   ];
 
-  const statements = code.split(" ");
-  const tokens = [];
+  câu lệnh const = code.split(" ");
+  mã thông báo const = [];
   REGEXES.forEach(REGEX => {
-    statements.forEach(statement => {
-      tokens.push(/* ... */);
+    câu lệnh.forEach(câu lệnh => {
+      token.push(/* ... */);
     });
   });
 
-  return tokens;
+  trả lại token;
 }
 
-function parse(tokens) {
-  const syntaxTree = [];
-  tokens.forEach(token => {
-    syntaxTree.push(/* ... */);
+chức năng phân tích cú pháp (mã thông báo) {
+  cú pháp constTree = [];
+  token.forEach(token => {
+    cú phápTree.push(/* ... */);
   });
 
-  return syntaxTree;
+  trả về cú phápTree;
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Remove duplicate code
+### Xóa mã trùng lặp
 
-Do your absolute best to avoid duplicate code. Duplicate code is bad because it
-means that there's more than one place to alter something if you need to change
-some logic.
+Hãy cố gắng hết sức để tránh mã trùng lặp. Mã trùng lặp là xấu vì nó
+có nghĩa là có nhiều nơi để thay đổi điều gì đó nếu bạn cần thay đổi
+logic nào đó.
 
-Imagine if you run a restaurant and you keep track of your inventory: all your
-tomatoes, onions, garlic, spices, etc. If you have multiple lists that
-you keep this on, then all have to be updated when you serve a dish with
-tomatoes in them. If you only have one list, there's only one place to update!
+Hãy tưởng tượng nếu bạn điều hành một nhà hàng và theo dõi hàng tồn kho của mình: tất cả
+cà chua, hành, tỏi, gia vị, v.v. Nếu bạn có nhiều danh sách
+bạn tiếp tục cài đặt này thì tất cả đều phải được cập nhật khi bạn phục vụ một món ăn với
+cà chua trong đó. Nếu bạn chỉ có một danh sách thì chỉ có một nơi để cập nhật!
 
-Oftentimes you have duplicate code because you have two or more slightly
-different things, that share a lot in common, but their differences force you
-to have two or more separate functions that do much of the same things. Removing
-duplicate code means creating an abstraction that can handle this set of
-different things with just one function/module/class.
+Thông thường bạn có mã trùng lặp vì bạn có hai hoặc nhiều hơn một chút
+những thứ khác nhau, có nhiều điểm chung, nhưng sự khác biệt của chúng buộc bạn phải
+có hai hoặc nhiều chức năng riêng biệt thực hiện nhiều công việc giống nhau. Đang xóa
+mã trùng lặp có nghĩa là tạo ra một sự trừu tượng hóa có thể xử lý tập hợp này
+những thứ khác nhau chỉ với một chức năng/mô-đun/lớp.
 
-Getting the abstraction right is critical, that's why you should follow the
-SOLID principles laid out in the _Classes_ section. Bad abstractions can be
-worse than duplicate code, so be careful! Having said this, if you can make
-a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
-updating multiple places anytime you want to change one thing.
+Việc có được sự trừu tượng đúng là rất quan trọng, đó là lý do tại sao bạn nên làm theo
+Các nguyên tắc RẮN được trình bày trong phần _Classes_. Sự trừu tượng xấu có thể
+tệ hơn mã trùng lặp, vì vậy hãy cẩn thận! Đã nói điều này, nếu bạn có thể làm
+một sự trừu tượng tốt, hãy làm đi! Đừng lặp lại chính mình, nếu không bạn sẽ tìm thấy chính mình
+cập nhật nhiều nơi bất cứ lúc nào bạn muốn thay đổi một điều.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function showDeveloperList(developers) {
-  developers.forEach(developer => {
-    const expectedSalary = developer.calculateExpectedSalary();
-    const experience = developer.getExperience();
-    const githubLink = developer.getGithubLink();
-    const data = {
-      expectedSalary,
-      experience,
-      githubLink
+hàm showDeveloperList(developers) {
+  nhà phát triển.forEach(nhà phát triển => {
+    const mong đợiSalary = nhà phát triển.calateExpectedSalary();
+    const experience = dev.getExperience();
+    const githubLink = dev.getGithubLink();
+    dữ liệu const = {
+      mức lương mong đợi,
+      kinh nghiệm,
+      githubLiên kết
     };
 
-    render(data);
+    kết xuất (dữ liệu);
   });
 }
 
-function showManagerList(managers) {
-  managers.forEach(manager => {
-    const expectedSalary = manager.calculateExpectedSalary();
+hàm showManagerList(người quản lý) {
+  người quản lý.forEach(người quản lý => {
+    const mong đợiSalary = manager.calcExpectedSalary();
     const experience = manager.getExperience();
     const portfolio = manager.getMBAProjects();
-    const data = {
-      expectedSalary,
-      experience,
-      portfolio
+    dữ liệu const = {
+      mức lương mong đợi,
+      kinh nghiệm,
+      danh mục đầu tư
     };
 
-    render(data);
+    kết xuất (dữ liệu);
   });
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function showEmployeeList(employees) {
-  employees.forEach(employee => {
-    const expectedSalary = employee.calculateExpectedSalary();
-    const experience = employee.getExperience();
+hàm showEmployeeList(nhân viên) {
+  nhân viên.forEach(nhân viên => {
+    const mong đợiSalary = nhân viên. tính toánExpectedSalary();
+    const experience = nhân viên.getExperience();
 
-    const data = {
-      expectedSalary,
-      experience
+    dữ liệu const = {
+      mức lương mong đợi,
+      kinh nghiệm
     };
 
-    switch (employee.type) {
-      case "manager":
-        data.portfolio = employee.getMBAProjects();
-        break;
-      case "developer":
-        data.githubLink = employee.getGithubLink();
-        break;
+    chuyển đổi (nhân viên.type) {
+      trường hợp "người quản lý":
+        data.portfolio = nhân viên.getMBAProjects();
+        phá vỡ;
+      trường hợp "nhà phát triển":
+        data.githubLink = nhân viên.getGithubLink();
+        phá vỡ;
     }
 
-    render(data);
+    kết xuất (dữ liệu);
   });
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Set default objects with Object.assign
+### Đặt đối tượng mặc định bằng Object.sign
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const menuConfig = {
-  title: null,
-  body: "Bar",
-  buttonText: null,
-  cancellable: true
+menu constConfig = {
+  tiêu đề: vô giá trị,
+  nội dung: "Thanh",
+  nútText: null,
+  có thể hủy: đúng
 };
 
-function createMenu(config) {
+hàm createMenu(config) {
   config.title = config.title || "Foo";
-  config.body = config.body || "Bar";
+  config.body = config.body || "Quán ba";
   config.buttonText = config.buttonText || "Baz";
   config.cancellable =
-    config.cancellable !== undefined ? config.cancellable : true;
+    config.cancellable !== không xác định ? config.cancellable : đúng;
 }
 
 createMenu(menuConfig);
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-const menuConfig = {
-  title: "Order",
-  // User did not include 'body' key
-  buttonText: "Send",
-  cancellable: true
+menu constConfig = {
+  tiêu đề: "Đặt hàng",
+  // Người dùng không bao gồm khóa 'body'
+  nútText: "Gửi",
+  có thể hủy: đúng
 };
 
-function createMenu(config) {
-  let finalConfig = Object.assign(
+hàm createMenu(config) {
+  hãy để FinalConfig = Object.sign(
     {
-      title: "Foo",
-      body: "Bar",
-      buttonText: "Baz",
-      cancellable: true
+      tiêu đề: "Foo",
+      nội dung: "Thanh",
+      nútText: "Baz",
+      có thể hủy: đúng
     },
-    config
+    cấu hình
   );
-  return finalConfig
-  // config now equals: {title: "Order", body: "Bar", buttonText: "Send", cancellable: true}
+  trả về cấu hình cuối cùng
+  // config bây giờ bằng: {title: "Order", body: "Bar", ButtonText: "Send", cancelable: true}
   // ...
 }
 
 createMenu(menuConfig);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Don't use flags as function parameters
+### Không sử dụng cờ làm tham số hàm
 
-Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+Cờ cho người dùng biết rằng chức năng này thực hiện nhiều chức năng. Chức năng nên làm một việc. Tách các hàm của bạn ra nếu chúng đi theo các đường dẫn mã khác nhau dựa trên boolean.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function createFile(name, temp) {
-  if (temp) {
+hàm createFile(name, temp) {
+  nếu (tạm thời) {
     fs.create(`./temp/${name}`);
-  } else {
+  } khác {
     fs.create(name);
   }
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function createFile(name) {
+hàm createFile(name) {
   fs.create(name);
 }
 
-function createTempFile(name) {
+hàm createTempFile(name) {
   createFile(`./temp/${name}`);
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid Side Effects (part 1)
+### Tránh tác dụng phụ (phần 1)
 
-A function produces a side effect if it does anything other than take a value in
-and return another value or values. A side effect could be writing to a file,
-modifying some global variable, or accidentally wiring all your money to a
-stranger.
+Một hàm tạo ra tác dụng phụ nếu nó làm bất cứ điều gì khác ngoài việc lấy một giá trị trong
+và trả về một hoặc nhiều giá trị khác. Tác dụng phụ có thể là ghi vào một tập tin,
+sửa đổi một số biến toàn cục hoặc vô tình chuyển toàn bộ số tiền của bạn sang một
+người lạ.
 
-Now, you do need to have side effects in a program on occasion. Like the previous
-example, you might need to write to a file. What you want to do is to
-centralize where you are doing this. Don't have several functions and classes
-that write to a particular file. Have one service that does it. One and only one.
+Bây giờ, đôi khi bạn cần phải có tác dụng phụ trong một chương trình. Giống như trước đây
+Ví dụ, bạn có thể cần ghi vào một tập tin. Những gì bạn muốn làm là
+tập trung nơi bạn đang làm việc này. Không có nhiều hàm và lớp
+ghi vào một tập tin cụ thể. Có một dịch vụ thực hiện điều đó. Một và chỉ một.
 
-The main point is to avoid common pitfalls like sharing state between objects
-without any structure, using mutable data types that can be written to by anything,
-and not centralizing where your side effects occur. If you can do this, you will
-be happier than the vast majority of other programmers.
+Điểm chính là tránh những cạm bẫy phổ biến như chia sẻ trạng thái giữa các đối tượng
+không có bất kỳ cấu trúc nào, sử dụng các kiểu dữ liệu có thể thay đổi mà bất cứ thứ gì cũng có thể ghi vào,
+và không tập trung vào nơi xảy ra tác dụng phụ của bạn. Nếu bạn có thể làm được điều này, bạn sẽ
+hạnh phúc hơn đại đa số các lập trình viên khác.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-// Global variable referenced by following function.
-// If we had another function that used this name, now it'd be an array and it could break it.
+// Biến toàn cục được tham chiếu bởi hàm sau.
+// Nếu chúng ta có một hàm khác sử dụng tên này thì bây giờ nó sẽ là một mảng và có thể phá vỡ nó.
 let name = "Ryan McDermott";
 
-function splitIntoFirstAndLastName() {
-  name = name.split(" ");
+hàm chiaIntoFirstAndLastName() {
+  tên = name.split(" ");
 }
 
-splitIntoFirstAndLastName();
+chiaIntoFirstAndLastName();
 
-console.log(name); // ['Ryan', 'McDermott'];
+console.log(tên); // ['Ryan', 'McDermott'];
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function splitIntoFirstAndLastName(name) {
-  return name.split(" ");
+hàm chiaIntoFirstAndLastName(name) {
+  tên trả về.split(" ");
 }
 
-const name = "Ryan McDermott";
-const newName = splitIntoFirstAndLastName(name);
+tên const = "Ryan McDermott";
+const newName = SplitIntoFirstAndLastName(name);
 
-console.log(name); // 'Ryan McDermott';
+console.log(tên); // 'Ryan McDermott';
 console.log(newName); // ['Ryan', 'McDermott'];
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid Side Effects (part 2)
+### Tránh tác dụng phụ (phần 2)
 
-In JavaScript, some values are unchangeable (immutable) and some are changeable 
-(mutable). Objects and arrays are two kinds of mutable values so it's important 
-to handle them carefully when they're passed as parameters to a function. A 
-JavaScript function can change an object's properties or alter the contents of 
-an array which could easily cause bugs elsewhere.
+Trong JavaScript, một số giá trị không thể thay đổi (immutable) và một số có thể thay đổi được
+(có thể thay đổi). Đối tượng và mảng là hai loại giá trị có thể thay đổi nên điều quan trọng là
+để xử lý chúng một cách cẩn thận khi chúng được truyền dưới dạng tham số cho hàm. MỘT
+Hàm JavaScript có thể thay đổi thuộc tính của đối tượng hoặc thay đổi nội dung của
+một mảng có thể dễ dàng gây ra lỗi ở nơi khác.
 
-Suppose there's a function that accepts an array parameter representing a 
-shopping cart. If the function makes a change in that shopping cart array - 
-by adding an item to purchase, for example - then any other function that 
-uses that same `cart` array will be affected by this addition. That may be 
-great, however it could also be bad. Let's imagine a bad situation:
+Giả sử có một hàm chấp nhận một tham số mảng đại diện cho một
+giỏ hàng. Nếu hàm thực hiện thay đổi trong mảng giỏ hàng đó -
+bằng cách thêm một mặt hàng để mua chẳng hạn - sau đó bất kỳ chức năng nào khác
+sử dụng cùng mảng `cart` đó sẽ bị ảnh hưởng bởi sự bổ sung này. Đó có thể là
+tuyệt vời, tuy nhiên nó cũng có thể tệ. Hãy tưởng tượng một tình huống xấu:
 
-The user clicks the "Purchase" button which calls a `purchase` function that
-spawns a network request and sends the `cart` array to the server. Because
-of a bad network connection, the `purchase` function has to keep retrying the
-request. Now, what if in the meantime the user accidentally clicks an "Add to Cart"
-button on an item they don't actually want before the network request begins?
-If that happens and the network request begins, then that purchase function
-will send the accidentally added item because the `cart` array was modified.
+Người dùng nhấp vào nút "Mua hàng" để gọi chức năng `mua hàng`
+tạo ra một yêu cầu mạng và gửi mảng `cart` đến máy chủ. Bởi vì
+do kết nối mạng kém, chức năng `purchase` phải tiếp tục thử lại
+lời yêu cầu. Bây giờ, điều gì sẽ xảy ra nếu trong lúc đó người dùng vô tình nhấp vào "Thêm vào giỏ hàng"
+trên một mục họ không thực sự muốn trước khi yêu cầu mạng bắt đầu?
+Nếu điều đó xảy ra và yêu cầu mạng bắt đầu thì chức năng mua hàng đó
+sẽ gửi mục vô tình được thêm vào vì mảng `cart` đã được sửa đổi.
 
-A great solution would be for the `addItemToCart` function to always clone the 
-`cart`, edit it, and return the clone. This would ensure that functions that are still
-using the old shopping cart wouldn't be affected by the changes.
+Một giải pháp tuyệt vời là hàm `addItemToCart` luôn sao chép
+`cart`, chỉnh sửa nó và trả lại bản sao. Điều này sẽ đảm bảo rằng các chức năng vẫn còn
+sử dụng giỏ hàng cũ sẽ không bị ảnh hưởng bởi những thay đổi.
 
-Two caveats to mention to this approach:
+Hai lưu ý cần đề cập đến cách tiếp cận này:
 
-1. There might be cases where you actually want to modify the input object,
-   but when you adopt this programming practice you will find that those cases
-   are pretty rare. Most things can be refactored to have no side effects!
+1. Có thể có trường hợp bạn thực sự muốn sửa đổi đối tượng đầu vào,
+   nhưng khi bạn áp dụng phương pháp lập trình này, bạn sẽ thấy rằng những trường hợp đó
+   khá hiếm. Hầu hết mọi thứ có thể được tái cấu trúc để không có tác dụng phụ!
 
-2. Cloning big objects can be very expensive in terms of performance. Luckily,
-   this isn't a big issue in practice because there are
-   [great libraries](https://facebook.github.io/immutable-js/) that allow
-   this kind of programming approach to be fast and not as memory intensive as
-   it would be for you to manually clone objects and arrays.
+2. Nhân bản các đối tượng lớn có thể rất tốn kém về mặt hiệu suất. May mắn thay,
+   đây không phải là một vấn đề lớn trong thực tế bởi vì có
+   [thư viện tuyệt vời](https://facebook.github.io/immutable-js/) cho phép
+   cách tiếp cận lập trình này nhanh và không tốn nhiều bộ nhớ như
+   bạn sẽ phải sao chép thủ công các đối tượng và mảng.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const addItemToCart = (cart, item) => {
+const addItemToCart = (giỏ hàng, mặt hàng) => {
   cart.push({ item, date: Date.now() });
 };
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-const addItemToCart = (cart, item) => {
+const addItemToCart = (giỏ hàng, mặt hàng) => {
   return [...cart, { item, date: Date.now() }];
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Don't write to global functions
+### Không ghi vào các hàm toàn cục
 
-Polluting globals is a bad practice in JavaScript because you could clash with another
-library and the user of your API would be none-the-wiser until they get an
-exception in production. Let's think about an example: what if you wanted to
-extend JavaScript's native Array method to have a `diff` method that could
-show the difference between two arrays? You could write your new function
-to the `Array.prototype`, but it could clash with another library that tried
-to do the same thing. What if that other library was just using `diff` to find
-the difference between the first and last elements of an array? This is why it
-would be much better to just use ES2015/ES6 classes and simply extend the `Array` global.
+Gây ô nhiễm toàn cầu là một hành vi tồi trong JavaScript vì bạn có thể xung đột với một thế giới khác
+thư viện và người dùng API của bạn sẽ không khôn ngoan hơn cho đến khi họ nhận được
+ngoại lệ trong sản xuất. Hãy nghĩ về một ví dụ: nếu bạn muốn
+mở rộng phương thức Array gốc của JavaScript để có phương thức `diff` có thể
+cho thấy sự khác biệt giữa hai mảng? Bạn có thể viết chức năng mới của bạn
+vào `Array.prototype`, nhưng nó có thể xung đột với một thư viện khác đã thử
+để làm điều tương tự Điều gì sẽ xảy ra nếu thư viện kia chỉ sử dụng `diff` để tìm
+sự khác biệt giữa phần tử đầu tiên và phần tử cuối cùng của một mảng? Đây là lý do tại sao nó
+sẽ tốt hơn nhiều nếu chỉ sử dụng các lớp ES2015/ES6 và chỉ cần mở rộng `Array` trên toàn cầu.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
 Array.prototype.diff = function diff(comparisonArray) {
-  const hash = new Set(comparisonArray);
+  const hash = Bộ mới (comparisonArray);
   return this.filter(elem => !hash.has(elem));
 };
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class SuperArray extends Array {
-  diff(comparisonArray) {
-    const hash = new Set(comparisonArray);
+lớp SuperArray mở rộng mảng {
+  khác biệt (so sánhArray) {
+    const hash = Bộ mới (comparisonArray);
     return this.filter(elem => !hash.has(elem));
   }
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Favor functional programming over imperative programming
+### Ưu tiên lập trình chức năng hơn lập trình mệnh lệnh
 
-JavaScript isn't a functional language in the way that Haskell is, but it has
-a functional flavor to it. Functional languages can be cleaner and easier to test.
-Favor this style of programming when you can.
+JavaScript không phải là một ngôn ngữ chức năng như Haskell, nhưng nó có
+một hương vị chức năng cho nó. Ngôn ngữ chức năng có thể sạch hơn và dễ kiểm tra hơn.
+Hãy ủng hộ phong cách lập trình này khi bạn có thể.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const programmerOutput = [
+const lập trìnhOutput = [
   {
-    name: "Uncle Bobby",
-    linesOfCode: 500
+    tên: "Chú Bobby",
+    dòngOfCode: 500
   },
   {
-    name: "Suzie Q",
-    linesOfCode: 1500
+    tên: "Suzie Q",
+    dòngOfCode: 1500
   },
   {
-    name: "Jimmy Gosling",
-    linesOfCode: 150
+    tên: "Jimmy Gosling",
+    dòngOfCode: 150
   },
   {
-    name: "Gracie Hopper",
-    linesOfCode: 1000
+    tên: "Gracie Hopper",
+    dòngOfCode: 1000
   }
 ];
 
-let totalOutput = 0;
+đặt tổng đầu ra = 0;
 
-for (let i = 0; i < programmerOutput.length; i++) {
-  totalOutput += programmerOutput[i].linesOfCode;
+for (let i = 0; i < lập trình viênOutput.length; i++) {
+  TotalOutput += lập trình viênOutput[i].linesOfCode;
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-const programmerOutput = [
+const lập trìnhOutput = [
   {
-    name: "Uncle Bobby",
-    linesOfCode: 500
+    tên: "Chú Bobby",
+    dòngOfCode: 500
   },
   {
-    name: "Suzie Q",
-    linesOfCode: 1500
+    tên: "Suzie Q",
+    dòngOfCode: 1500
   },
   {
-    name: "Jimmy Gosling",
-    linesOfCode: 150
+    tên: "Jimmy Gosling",
+    dòngOfCode: 150
   },
   {
-    name: "Gracie Hopper",
-    linesOfCode: 1000
+    tên: "Gracie Hopper",
+    dòngOfCode: 1000
   }
 ];
 
-const totalOutput = programmerOutput.reduce(
-  (totalLines, output) => totalLines + output.linesOfCode,
+const TotalOutput = lập trình viênOutput.reduce(
+  (totalLines, đầu ra) => TotalLines + out.linesOfCode,
   0
 );
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Encapsulate conditionals
+### Đóng gói các điều kiện
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-if (fsm.state === "fetching" && isEmpty(listNode)) {
+if (fsm.state === "đang tìm nạp" && isEmpty(listNode)) {
   // ...
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function shouldShowSpinner(fsm, listNode) {
-  return fsm.state === "fetching" && isEmpty(listNode);
+hàm nênShowSpinner(fsm, listNode) {
+  return fsm.state === "đang tìm nạp" && isEmpty(listNode);
 }
 
-if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
+if (nênShowSpinner(fsmInstance, listNodeInstance)) {
   // ...
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid negative conditionals
+### Tránh dùng câu điều kiện phủ định
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function isDOMNodeNotPresent(node) {
+hàm isDOMNodeNotPresent(node) {
   // ...
 }
 
@@ -834,10 +835,10 @@ if (!isDOMNodeNotPresent(node)) {
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function isDOMNodePresent(node) {
+hàm isDOMNodePresent(node) {
   // ...
 }
 
@@ -846,153 +847,153 @@ if (isDOMNodePresent(node)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid conditionals
+### Tránh điều kiện
 
-This seems like an impossible task. Upon first hearing this, most people say,
-"how am I supposed to do anything without an `if` statement?" The answer is that
-you can use polymorphism to achieve the same task in many cases. The second
-question is usually, "well that's great but why would I want to do that?" The
-answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you
-are telling your user that your function does more than one thing. Remember,
-just do one thing.
+Đây dường như là một nhiệm vụ bất khả thi. Khi lần đầu tiên nghe điều này, hầu hết mọi người đều nói,
+"làm sao tôi có thể làm bất cứ điều gì nếu không có câu lệnh `if`?" Câu trả lời là vậy
+bạn có thể sử dụng tính đa hình để đạt được nhiệm vụ tương tự trong nhiều trường hợp. Thư hai
+câu hỏi thường là "điều đó thật tuyệt nhưng tại sao tôi lại muốn làm điều đó?" Các
+Câu trả lời là một khái niệm về clean code trước đây mà chúng ta đã học: một hàm chỉ nên làm
+một điều. Khi bạn có các lớp và hàm có câu lệnh `if`, bạn
+đang nói với người dùng của bạn rằng chức năng của bạn thực hiện nhiều hơn một việc. Nhớ,
+chỉ cần làm một điều
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class Airplane {
+hạng Máy bay {
   // ...
   getCruisingAltitude() {
-    switch (this.type) {
-      case "777":
-        return this.getMaxAltitude() - this.getPassengerCount();
-      case "Air Force One":
-        return this.getMaxAltitude();
-      case "Cessna":
-        return this.getMaxAltitude() - this.getFuelExpenditure();
+    chuyển đổi (this.type) {
+      trường hợp "777":
+        trả về this.getMaxAltitude() - this.getPassengerCount();
+      Vụ án “Không Lực Một”:
+        trả về this.getMaxAltitude();
+      trường hợp "Cessna":
+        trả về this.getMaxAltitude() - this.getFuelExpenditure();
     }
   }
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class Airplane {
+hạng Máy bay {
   // ...
 }
 
-class Boeing777 extends Airplane {
+hạng Boeing777 mở rộng Máy bay {
   // ...
   getCruisingAltitude() {
-    return this.getMaxAltitude() - this.getPassengerCount();
+    trả về this.getMaxAltitude() - this.getPassengerCount();
   }
 }
 
-class AirForceOne extends Airplane {
+lớp AirForceOne mở rộng Máy bay {
   // ...
   getCruisingAltitude() {
-    return this.getMaxAltitude();
+    trả về this.getMaxAltitude();
   }
 }
 
-class Cessna extends Airplane {
+lớp Cessna mở rộng Máy bay {
   // ...
   getCruisingAltitude() {
-    return this.getMaxAltitude() - this.getFuelExpenditure();
+    trả về this.getMaxAltitude() - this.getFuelExpenditure();
   }
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid type-checking (part 1)
+### Tránh kiểm tra kiểu (phần 1)
 
-JavaScript is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
+JavaScript không được gõ, có nghĩa là các hàm của bạn có thể nhận bất kỳ loại đối số nào.
+Đôi khi bạn bị sự tự do này cắn rứt và điều đó trở nên hấp dẫn để làm điều đó.
+kiểm tra kiểu trong hàm của bạn. Có nhiều cách để tránh phải làm điều này.
+Điều đầu tiên cần xem xét là các API nhất quán.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function travelToTexas(vehicle) {
-  if (vehicle instanceof Bicycle) {
-    vehicle.pedal(this.currentLocation, new Location("texas"));
-  } else if (vehicle instanceof Car) {
-    vehicle.drive(this.currentLocation, new Location("texas"));
+hàm travelToTexas(xe) {
+  if (ví dụ xe đạp) {
+    Vehicle.pedal(this.currentLocation, new Location("texas"));
+  } else if (ví dụ phương tiện của Ô tô) {
+    Vehicle.drive(this.currentLocation, New Location("texas"));
   }
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function travelToTexas(vehicle) {
-  vehicle.move(this.currentLocation, new Location("texas"));
+hàm travelToTexas(xe) {
+  car.move(this.currentLocation, new Location("texas"));
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid type-checking (part 2)
+### Tránh kiểm tra kiểu (phần 2)
 
-If you are working with basic primitive values like strings and integers,
-and you can't use polymorphism but you still feel the need to type-check,
-you should consider using TypeScript. It is an excellent alternative to normal
-JavaScript, as it provides you with static typing on top of standard JavaScript
-syntax. The problem with manually type-checking normal JavaScript is that
-doing it well requires so much extra verbiage that the faux "type-safety" you get
-doesn't make up for the lost readability. Keep your JavaScript clean, write
-good tests, and have good code reviews. Otherwise, do all of that but with
-TypeScript (which, like I said, is a great alternative!).
+Nếu bạn đang làm việc với các giá trị nguyên thủy cơ bản như chuỗi và số nguyên,
+và bạn không thể sử dụng đa hình nhưng bạn vẫn cảm thấy cần phải kiểm tra kiểu,
+bạn nên cân nhắc sử dụng TypeScript. Nó là một sự thay thế tuyệt vời cho bình thường
+JavaScript, vì nó cung cấp cho bạn kiểu gõ tĩnh trên JavaScript tiêu chuẩn
+cú pháp. Vấn đề với việc kiểm tra kiểu thủ công bằng JavaScript thông thường là
+làm tốt việc đó đòi hỏi phải dài dòng nhiều đến mức bạn nhận được "loại an toàn" giả tạo
+không bù đắp cho khả năng đọc bị mất. Giữ JavaScript của bạn sạch sẽ, viết
+các bài kiểm tra tốt và có đánh giá mã tốt. Nếu không, hãy làm tất cả những điều đó nhưng với
+TypeScript (như tôi đã nói, là một sự thay thế tuyệt vời!).
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function combine(val1, val2) {
-  if (
-    (typeof val1 === "number" && typeof val2 === "number") ||
-    (typeof val1 === "string" && typeof val2 === "string")
+hàm kết hợp(val1, val2) {
+  nếu như (
+    (typeof val1 === "số" && typeof val2 === "số") ||
+    (typeof val1 === "chuỗi" && typeof val2 === "chuỗi")
   ) {
-    return val1 + val2;
+    trả về giá trị1 + giá trị2;
   }
 
-  throw new Error("Must be of type String or Number");
+  ném Lỗi mới ("Phải thuộc loại Chuỗi hoặc Số");
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function combine(val1, val2) {
-  return val1 + val2;
+hàm kết hợp(val1, val2) {
+  trả về giá trị1 + giá trị2;
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Don't over-optimize
+### Đừng tối ưu hóa quá mức
 
-Modern browsers do a lot of optimization under-the-hood at runtime. A lot of
-times, if you are optimizing then you are just wasting your time. [There are good
-resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
-for seeing where optimization is lacking. Target those in the meantime, until
-they are fixed if they can be.
+Các trình duyệt hiện đại thực hiện rất nhiều tối ưu hóa trong thời gian chạy. rất nhiều
+Đôi khi, nếu bạn đang tối ưu hóa thì bạn chỉ đang lãng phí thời gian. [Có tốt
+tài nguyên](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
+để xem thiếu tối ưu hóa ở đâu. Nhắm mục tiêu vào những người đó trong thời gian chờ đợi, cho đến khi
+chúng được sửa nếu có thể.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-// On old browsers, each iteration with uncached `list.length` would be costly
-// because of `list.length` recomputation. In modern browsers, this is optimized.
+// Trên các trình duyệt cũ, mỗi lần lặp với `list.length` không được lưu trong bộ nhớ đệm sẽ rất tốn kém
+// do tính toán lại `list.length`. Trong các trình duyệt hiện đại, điều này được tối ưu hóa.
 for (let i = 0, len = list.length; i < len; i++) {
   // ...
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
 for (let i = 0; i < list.length; i++) {
@@ -1000,210 +1001,210 @@ for (let i = 0; i < list.length; i++) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Remove dead code
+### Xóa mã chết
 
-Dead code is just as bad as duplicate code. There's no reason to keep it in
-your codebase. If it's not being called, get rid of it! It will still be safe
-in your version history if you still need it.
+Mã chết cũng tệ như mã trùng lặp. Không có lý do gì để giữ nó trong
+cơ sở mã của bạn. Nếu nó không được gọi, hãy loại bỏ nó! Sẽ vẫn an toàn
+trong lịch sử phiên bản của bạn nếu bạn vẫn cần nó.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function oldRequestModule(url) {
+hàm oldRequestModule(url) {
   // ...
 }
 
-function newRequestModule(url) {
-  // ...
-}
-
-const req = newRequestModule;
-inventoryTracker("apples", req, "www.inventory-awesome.io");
-```
-
-**Good:**
-
-```javascript
-function newRequestModule(url) {
+hàm newRequestModule(url) {
   // ...
 }
 
 const req = newRequestModule;
-inventoryTracker("apples", req, "www.inventory-awesome.io");
+InventoryTracker("táo", req, "www.inventory-awesome.io");
 ```
 
-**[⬆ back to top](#table-of-contents)**
-
-## **Objects and Data Structures**
-
-### Use getters and setters
-
-Using getters and setters to access data on objects could be better than simply
-looking for a property on an object. "Why?" you might ask. Well, here's an
-unorganized list of reasons why:
-
-- When you want to do more beyond getting an object property, you don't have
-  to look up and change every accessor in your codebase.
-- Makes adding validation simple when doing a `set`.
-- Encapsulates the internal representation.
-- Easy to add logging and error handling when getting and setting.
-- You can lazy load your object's properties, let's say getting it from a
-  server.
-
-**Bad:**
+**Tốt:**
 
 ```javascript
-function makeBankAccount() {
+hàm newRequestModule(url) {
+  // ...
+}
+
+const req = newRequestModule;
+InventoryTracker("táo", req, "www.inventory-awesome.io");
+```
+
+**[⬆ quay lại đầu trang](#table-of-contents)**
+
+## **Đối tượng và cấu trúc dữ liệu**
+
+### Sử dụng getters và setters
+
+Sử dụng getters và setters để truy cập dữ liệu trên các đối tượng có thể tốt hơn là chỉ đơn giản
+tìm kiếm một thuộc tính trên một đối tượng. "Tại sao?" bạn có thể hỏi. Vâng, đây là một
+danh sách không có tổ chức các lý do tại sao:
+
+- Khi bạn muốn làm nhiều hơn ngoài việc có được một thuộc tính đối tượng, bạn không có
+  để tra cứu và thay đổi mọi trình truy cập trong cơ sở mã của bạn.
+- Làm cho việc thêm xác thực trở nên đơn giản khi thực hiện `set`.
+- Đóng gói biểu diễn bên trong.
+- Dễ dàng thêm tính năng ghi nhật ký và xử lý lỗi khi nhận và cài đặt.
+- Bạn có thể lười tải các thuộc tính của đối tượng, giả sử lấy nó từ một
+  máy chủ.
+
+**Xấu:**
+
+```javascript
+hàm makeBankAccount() {
   // ...
 
-  return {
-    balance: 0
+  trở lại {
+    số dư: 0
     // ...
   };
 }
 
-const account = makeBankAccount();
-account.balance = 100;
+tài khoản const = makeBankAccount();
+tài khoản.balance = 100;
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function makeBankAccount() {
-  // this one is private
-  let balance = 0;
+hàm makeBankAccount() {
+  // cái này là riêng tư
+  đặt số dư = 0;
 
-  // a "getter", made public via the returned object below
-  function getBalance() {
-    return balance;
+  // một "getter", được công khai thông qua đối tượng được trả về bên dưới
+  hàm getBalance() {
+    trả lại số dư;
   }
 
-  // a "setter", made public via the returned object below
-  function setBalance(amount) {
-    // ... validate before updating the balance
-    balance = amount;
+  // một "setter", được công khai thông qua đối tượng được trả về bên dưới
+  hàm setBalance(số tiền) {
+    // ... xác thực trước khi cập nhật số dư
+    số dư = số tiền;
   }
 
-  return {
+  trở lại {
     // ...
-    getBalance,
-    setBalance
+    có được số dư,
+    bộSố dư
   };
 }
 
-const account = makeBankAccount();
+tài khoản const = makeBankAccount();
 account.setBalance(100);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Make objects have private members
+### Tạo đối tượng có thành viên riêng tư
 
-This can be accomplished through closures (for ES5 and below).
+Điều này có thể được thực hiện thông qua việc đóng (đối với ES5 trở xuống).
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const Employee = function(name) {
-  this.name = name;
+const Nhân viên = hàm(tên) {
+  this.name = tên;
 };
 
-Employee.prototype.getName = function getName() {
-  return this.name;
+Nhân viên.prototype.getName = hàm getName() {
+  trả lại cái này.name;
 };
 
-const employee = new Employee("John Doe");
-console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
-delete employee.name;
-console.log(`Employee name: ${employee.getName()}`); // Employee name: undefined
+const nhân viên = Nhân viên mới("John Doe");
+console.log(`Tên nhân viên: ${employee.getName()}`); // Tên nhân viên: John Doe
+xóa nhân viên.name;
+console.log(`Tên nhân viên: ${employee.getName()}`); // Tên nhân viên: chưa xác định
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function makeEmployee(name) {
-  return {
+hàm makeEmployee(name) {
+  trở lại {
     getName() {
-      return name;
+      trả lại tên;
     }
   };
 }
 
-const employee = makeEmployee("John Doe");
-console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
-delete employee.name;
-console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
+const nhân viên = makeEmployee("John Doe");
+console.log(`Tên nhân viên: ${employee.getName()}`); // Tên nhân viên: John Doe
+xóa nhân viên.name;
+console.log(`Tên nhân viên: ${employee.getName()}`); // Tên nhân viên: John Doe
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **Classes**
+## **Các lớp học**
 
-### Prefer ES2015/ES6 classes over ES5 plain functions
+### Thích các lớp ES2015/ES6 hơn các hàm đơn giản ES5
 
-It's very difficult to get readable class inheritance, construction, and method
-definitions for classical ES5 classes. If you need inheritance (and be aware
-that you might not), then prefer ES2015/ES6 classes. However, prefer small functions over
-classes until you find yourself needing larger and more complex objects.
+Rất khó để có được sự kế thừa, xây dựng và phương thức của lớp có thể đọc được
+định nghĩa cho các lớp ES5 cổ điển. Nếu bạn cần sự kế thừa (và hãy lưu ý
+mà bạn có thể không), thì hãy ưu tiên các lớp ES2015/ES6. Tuy nhiên, thích các chức năng nhỏ hơn
+các lớp cho đến khi bạn thấy mình cần các đối tượng lớn hơn và phức tạp hơn.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const Animal = function(age) {
-  if (!(this instanceof Animal)) {
-    throw new Error("Instantiate Animal with `new`");
+const Động vật = hàm(tuổi) {
+  if (!(phiên bản này của Animal)) {
+    ném Lỗi mới("Khởi tạo động vật bằng `new`");
   }
 
-  this.age = age;
+  this.age = tuổi;
 };
 
-Animal.prototype.move = function move() {};
+Animal.prototype.move = hàm move() {};
 
-const Mammal = function(age, furColor) {
-  if (!(this instanceof Mammal)) {
-    throw new Error("Instantiate Mammal with `new`");
+const Động vật có vú = function(age, furColor) {
+  if (!(trường hợp này của động vật có vú)) {
+    ném Lỗi mới("Khởi tạo động vật có vú bằng `new`");
   }
 
   Animal.call(this, age);
   this.furColor = furColor;
 };
 
-Mammal.prototype = Object.create(Animal.prototype);
-Mammal.prototype.constructor = Mammal;
-Mammal.prototype.liveBirth = function liveBirth() {};
+Động vật có vú.prototype = Object.create(Animal.prototype);
+Động vật có vú.prototype.constructor = Động vật có vú;
+Động vật có vú.prototype.liveBirth = function liveBirth() {};
 
-const Human = function(age, furColor, languageSpoken) {
-  if (!(this instanceof Human)) {
-    throw new Error("Instantiate Human with `new`");
+const Human = function(age, furColor, ngôn ngữSpoken) {
+  if (!(trường hợp này của Human)) {
+    ném Lỗi mới("Khởi tạo con người bằng `new`");
   }
 
   Mammal.call(this, age, furColor);
-  this.languageSpoken = languageSpoken;
+  this.linguSpoken = ngôn ngữSpoken;
 };
 
-Human.prototype = Object.create(Mammal.prototype);
-Human.prototype.constructor = Human;
+Human.prototype = Object.create(Động vật có vú.prototype);
+Human.prototype.constructor = Con người;
 Human.prototype.speak = function speak() {};
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class Animal {
-  constructor(age) {
-    this.age = age;
+lớp Động vật {
+  hàm tạo (tuổi) {
+    this.age = tuổi;
   }
 
-  move() {
+  di chuyển() {
     /* ... */
   }
 }
 
-class Mammal extends Animal {
-  constructor(age, furColor) {
-    super(age);
+lớp Động vật có vú mở rộng Động vật {
+  hàm tạo (tuổi, furColor) {
+    siêu(tuổi);
     this.furColor = furColor;
   }
 
@@ -1212,223 +1213,223 @@ class Mammal extends Animal {
   }
 }
 
-class Human extends Mammal {
-  constructor(age, furColor, languageSpoken) {
-    super(age, furColor);
-    this.languageSpoken = languageSpoken;
+lớp Con người mở rộng Động vật có vú {
+  hàm tạo (tuổi, furColor, ngôn ngữSpoken) {
+    super(tuổi, furColor);
+    this.linguSpoken = ngôn ngữSpoken;
   }
 
-  speak() {
+  nói chuyện() {
     /* ... */
   }
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Use method chaining
+### Sử dụng chuỗi phương thức
 
-This pattern is very useful in JavaScript and you see it in many libraries such
-as jQuery and Lodash. It allows your code to be expressive, and less verbose.
-For that reason, I say, use method chaining and take a look at how clean your code
-will be. In your class functions, simply return `this` at the end of every function,
-and you can chain further class methods onto it.
+Mẫu này rất hữu ích trong JavaScript và bạn thấy nó trong nhiều thư viện như
+như jQuery và Lodash. Nó cho phép mã của bạn mang tính biểu cảm và ít dài dòng hơn.
+Vì lý do đó, tôi nói, hãy sử dụng chuỗi phương thức và xem mã của bạn sạch như thế nào
+sẽ là. Trong các hàm lớp của bạn, chỉ cần trả về `this` ở cuối mỗi hàm,
+và bạn có thể xâu chuỗi các phương thức lớp khác vào đó.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class Car {
-  constructor(make, model, color) {
-    this.make = make;
-    this.model = model;
-    this.color = color;
+hạng xe ô tô {
+  hàm tạo (tạo, kiểu, màu) {
+    this.make = làm;
+    this.model = mô hình;
+    this.color = màu;
   }
 
-  setMake(make) {
-    this.make = make;
+  setMake(làm) {
+    this.make = làm;
   }
 
   setModel(model) {
-    this.model = model;
+    this.model = mô hình;
   }
 
-  setColor(color) {
-    this.color = color;
+  setColor(màu) {
+    this.color = màu;
   }
 
-  save() {
+  cứu() {
     console.log(this.make, this.model, this.color);
   }
 }
 
-const car = new Car("Ford", "F-150", "red");
-car.setColor("pink");
+const car = Xe mới("Ford", "F-150", "đỏ");
+car.setColor("hồng");
 car.save();
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class Car {
-  constructor(make, model, color) {
-    this.make = make;
-    this.model = model;
-    this.color = color;
+hạng xe ô tô {
+  hàm tạo (tạo, kiểu, màu) {
+    this.make = làm;
+    this.model = mô hình;
+    this.color = màu;
   }
 
-  setMake(make) {
-    this.make = make;
-    // NOTE: Returning this for chaining
-    return this;
+  setMake(làm) {
+    this.make = làm;
+    // LƯU Ý: Trả lại cái này để xâu chuỗi
+    trả lại cái này;
   }
 
   setModel(model) {
-    this.model = model;
-    // NOTE: Returning this for chaining
-    return this;
+    this.model = mô hình;
+    // LƯU Ý: Trả lại cái này để xâu chuỗi
+    trả lại cái này;
   }
 
-  setColor(color) {
-    this.color = color;
-    // NOTE: Returning this for chaining
-    return this;
+  setColor(màu) {
+    this.color = màu;
+    // LƯU Ý: Trả lại cái này để xâu chuỗi
+    trả lại cái này;
   }
 
-  save() {
+  cứu() {
     console.log(this.make, this.model, this.color);
-    // NOTE: Returning this for chaining
-    return this;
+    // LƯU Ý: Trả lại cái này để xâu chuỗi
+    trả lại cái này;
   }
 }
 
-const car = new Car("Ford", "F-150", "red").setColor("pink").save();
+const car = Xe mới("Ford", "F-150", "red").setColor("pink").save();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Prefer composition over inheritance
+### Thích thành phần hơn là kế thừa
 
-As stated famously in [_Design Patterns_](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
-you should prefer composition over inheritance where you can. There are lots of
-good reasons to use inheritance and lots of good reasons to use composition.
-The main point for this maxim is that if your mind instinctively goes for
-inheritance, try to think if composition could model your problem better. In some
-cases it can.
+Như đã nêu nổi tiếng trong [_Design Patterns_](https://en.wikipedia.org/wiki/Design_Patterns) của Gang of Four,
+bạn nên ưu tiên thành phần hơn là kế thừa nếu có thể. Có rất nhiều
+lý do chính đáng để sử dụng tính kế thừa và rất nhiều lý do chính đáng để sử dụng kết hợp.
+Điểm chính của câu châm ngôn này là nếu tâm trí bạn theo bản năng
+kế thừa, hãy thử nghĩ xem liệu thành phần có thể mô hình hóa vấn đề của bạn tốt hơn không. Trong một số
+trường hợp nó có thể.
 
-You might be wondering then, "when should I use inheritance?" It
-depends on your problem at hand, but this is a decent list of when inheritance
-makes more sense than composition:
+Khi đó bạn có thể thắc mắc "khi nào tôi nên sử dụng tính kế thừa?" Nó
+phụ thuộc vào vấn đề hiện tại của bạn, nhưng đây là một danh sách phù hợp khi kế thừa
+có ý nghĩa hơn thành phần:
 
-1. Your inheritance represents an "is-a" relationship and not a "has-a"
-   relationship (Human->Animal vs. User->UserDetails).
-2. You can reuse code from the base classes (Humans can move like all animals).
-3. You want to make global changes to derived classes by changing a base class.
-   (Change the caloric expenditure of all animals when they move).
+1. Quyền thừa kế của bạn đại diện cho mối quan hệ "is-a" chứ không phải "has-a"
+   mối quan hệ (Con người-> Động vật so với Người dùng-> Chi tiết người dùng).
+2. Bạn có thể sử dụng lại mã từ các lớp cơ sở (Con người có thể di chuyển như mọi loài động vật).
+3. Bạn muốn thực hiện những thay đổi toàn cục đối với các lớp dẫn xuất bằng cách thay đổi lớp cơ sở.
+   (Thay đổi mức tiêu thụ calo của tất cả các loài động vật khi chúng di chuyển).
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class Employee {
-  constructor(name, email) {
-    this.name = name;
+lớp Nhân viên {
+  hàm tạo (tên, email) {
+    this.name = tên;
     this.email = email;
   }
 
   // ...
 }
 
-// Bad because Employees "have" tax data. EmployeeTaxData is not a type of Employee
-class EmployeeTaxData extends Employee {
-  constructor(ssn, salary) {
-    super();
+// Xấu vì Nhân viên "có" dữ liệu thuế. Nhân viênTaxData không phải là một loại Nhân viên
+lớp Nhân viênTaxData mở rộng Nhân viên {
+  hàm tạo (ssn, lương) {
+    siêu();
     this.ssn = ssn;
-    this.salary = salary;
+    this.salary = lương;
   }
 
   // ...
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class EmployeeTaxData {
-  constructor(ssn, salary) {
+lớp Nhân viênTaxData {
+  hàm tạo (ssn, lương) {
     this.ssn = ssn;
-    this.salary = salary;
+    this.salary = lương;
   }
 
   // ...
 }
 
-class Employee {
-  constructor(name, email) {
-    this.name = name;
+lớp Nhân viên {
+  hàm tạo (tên, email) {
+    this.name = tên;
     this.email = email;
   }
 
-  setTaxData(ssn, salary) {
-    this.taxData = new EmployeeTaxData(ssn, salary);
+  setTaxData(ssn, lương) {
+    this.taxData = new Nhân viênTaxData(ssn, lương);
   }
   // ...
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **SOLID**
+## **CHẤT RẮN**
 
-### Single Responsibility Principle (SRP)
+### Nguyên tắc trách nhiệm duy nhất (SRP)
 
-As stated in Clean Code, "There should never be more than one reason for a class
-to change". It's tempting to jam-pack a class with a lot of functionality, like
-when you can only take one suitcase on your flight. The issue with this is
-that your class won't be conceptually cohesive and it will give it many reasons
-to change. Minimizing the amount of times you need to change a class is important.
-It's important because if too much functionality is in one class and you modify
-a piece of it, it can be difficult to understand how that will affect other
-dependent modules in your codebase.
+Như đã nêu trong Clean Code, "Không bao giờ có nhiều hơn một lý do cho một lớp
+để thay đổi". Thật hấp dẫn khi nhồi nhét một lớp với nhiều chức năng, như
+khi bạn chỉ có thể mang theo một chiếc vali trên chuyến bay của mình. Vấn đề với điều này là
+rằng lớp của bạn sẽ không gắn kết về mặt khái niệm và điều đó sẽ có nhiều lý do
+thay đổi. Giảm thiểu số lần bạn cần thay đổi lớp học là điều quan trọng.
+Điều này quan trọng vì nếu có quá nhiều chức năng trong một lớp và bạn sửa đổi
+một phần của nó, có thể khó hiểu điều đó sẽ ảnh hưởng như thế nào đến phần khác
+các mô-đun phụ thuộc trong cơ sở mã của bạn.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class UserSettings {
-  constructor(user) {
-    this.user = user;
+lớp Cài đặt người dùng {
+  hàm tạo (người dùng) {
+    this.user = người dùng;
   }
 
-  changeSettings(settings) {
+  thay đổiCài đặt(cài đặt) {
     if (this.verifyCredentials()) {
       // ...
     }
   }
 
-  verifyCredentials() {
+  xác minhCredentials() {
     // ...
   }
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class UserAuth {
-  constructor(user) {
-    this.user = user;
+lớp UserAuth {
+  hàm tạo (người dùng) {
+    this.user = người dùng;
   }
 
-  verifyCredentials() {
+  xác minhCredentials() {
     // ...
   }
 }
 
-class UserSettings {
-  constructor(user) {
-    this.user = user;
+lớp Cài đặt người dùng {
+  hàm tạo (người dùng) {
+    this.user = người dùng;
     this.auth = new UserAuth(user);
   }
 
-  changeSettings(settings) {
+  thay đổiCài đặt(cài đặt) {
     if (this.auth.verifyCredentials()) {
       // ...
     }
@@ -1436,271 +1437,271 @@ class UserSettings {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Open/Closed Principle (OCP)
+### Nguyên tắc đóng/mở (OCP)
 
-As stated by Bertrand Meyer, "software entities (classes, modules, functions,
-etc.) should be open for extension, but closed for modification." What does that
-mean though? This principle basically states that you should allow users to
-add new functionalities without changing existing code.
+Như Bertrand Meyer đã nêu, "các thực thể phần mềm (lớp, mô-đun, chức năng,
+v.v.) phải mở để mở rộng nhưng đóng để sửa đổi." Điều đó có tác dụng gì
+có nghĩa là mặc dù? Nguyên tắc này về cơ bản nói rằng bạn nên cho phép người dùng
+thêm các chức năng mới mà không thay đổi mã hiện có.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class AjaxAdapter extends Adapter {
-  constructor() {
-    super();
+lớp AjaxAdapter mở rộng Bộ điều hợp {
+  người xây dựng() {
+    siêu();
     this.name = "ajaxAdapter";
   }
 }
 
-class NodeAdapter extends Adapter {
-  constructor() {
-    super();
+lớp NodeAdapter mở rộng Adaptor {
+  người xây dựng() {
+    siêu();
     this.name = "nodeAdapter";
   }
 }
 
-class HttpRequester {
-  constructor(adapter) {
-    this.adapter = adapter;
+lớp httpRequester {
+  hàm tạo (bộ chuyển đổi) {
+    this.adapter = bộ chuyển đổi;
   }
 
-  fetch(url) {
+  tìm nạp(url) {
     if (this.adapter.name === "ajaxAdapter") {
-      return makeAjaxCall(url).then(response => {
-        // transform response and return
+      trả về makeAjaxCall(url).then(response => {
+        // chuyển đổi phản hồi và trả về
       });
     } else if (this.adapter.name === "nodeAdapter") {
-      return makeHttpCall(url).then(response => {
-        // transform response and return
+      trả về makeHttpCall(url).then(response => {
+        // chuyển đổi phản hồi và trả về
       });
     }
   }
 }
 
-function makeAjaxCall(url) {
-  // request and return promise
+hàm makeAjaxCall(url) {
+  // yêu cầu và trả lại lời hứa
 }
 
-function makeHttpCall(url) {
-  // request and return promise
+hàm makeHttpCall(url) {
+  // yêu cầu và trả lại lời hứa
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class AjaxAdapter extends Adapter {
-  constructor() {
-    super();
+lớp AjaxAdapter mở rộng Bộ điều hợp {
+  người xây dựng() {
+    siêu();
     this.name = "ajaxAdapter";
   }
 
-  request(url) {
-    // request and return promise
+  yêu cầu(url) {
+    // yêu cầu và trả lại lời hứa
   }
 }
 
-class NodeAdapter extends Adapter {
-  constructor() {
-    super();
+lớp NodeAdapter mở rộng Adaptor {
+  người xây dựng() {
+    siêu();
     this.name = "nodeAdapter";
   }
 
-  request(url) {
-    // request and return promise
+  yêu cầu(url) {
+    // yêu cầu và trả lại lời hứa
   }
 }
 
-class HttpRequester {
-  constructor(adapter) {
-    this.adapter = adapter;
+lớp httpRequester {
+  hàm tạo (bộ chuyển đổi) {
+    this.adapter = bộ chuyển đổi;
   }
 
-  fetch(url) {
-    return this.adapter.request(url).then(response => {
-      // transform response and return
+  tìm nạp(url) {
+    trả về this.adapter.request(url).then(response => {
+      // chuyển đổi phản hồi và trả về
     });
   }
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Liskov Substitution Principle (LSP)
+### Nguyên tắc thay thế Liskov (LSP)
 
-This is a scary term for a very simple concept. It's formally defined as "If S
-is a subtype of T, then objects of type T may be replaced with objects of type S
-(i.e., objects of type S may substitute objects of type T) without altering any
-of the desirable properties of that program (correctness, task performed,
-etc.)." That's an even scarier definition.
+Đây là một thuật ngữ đáng sợ cho một khái niệm rất đơn giản. Nó được định nghĩa chính thức là "Nếu S
+là một kiểu con của T thì các đối tượng kiểu T có thể được thay thế bằng các đối tượng kiểu S
+(tức là các đối tượng loại S có thể thay thế các đối tượng loại T) mà không làm thay đổi bất kỳ
+các thuộc tính mong muốn của chương trình đó (tính chính xác, nhiệm vụ được thực hiện,
+v.v.)." Đó là một định nghĩa thậm chí còn đáng sợ hơn.
 
-The best explanation for this is if you have a parent class and a child class,
-then the base class and child class can be used interchangeably without getting
-incorrect results. This might still be confusing, so let's take a look at the
-classic Square-Rectangle example. Mathematically, a square is a rectangle, but
-if you model it using the "is-a" relationship via inheritance, you quickly
-get into trouble.
+Lời giải thích tốt nhất cho điều này là nếu bạn có một lớp cha và một lớp con,
+thì lớp cơ sở và lớp con có thể được sử dụng thay thế cho nhau mà không cần
+kết quả sai. Điều này có thể vẫn còn gây nhầm lẫn, vì vậy chúng ta hãy xem xét
+ví dụ hình vuông-hình chữ nhật cổ điển. Về mặt toán học, hình vuông là hình chữ nhật, nhưng
+nếu bạn lập mô hình nó bằng cách sử dụng mối quan hệ "is-a" thông qua tính kế thừa, bạn sẽ nhanh chóng
+gặp rắc rối.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class Rectangle {
-  constructor() {
+lớp Hình chữ nhật {
+  người xây dựng() {
     this.width = 0;
-    this.height = 0;
+    cái này.height = 0;
   }
 
-  setColor(color) {
+  setColor(màu) {
     // ...
   }
 
-  render(area) {
+  kết xuất (khu vực) {
     // ...
   }
 
   setWidth(width) {
-    this.width = width;
+    this.width = chiều rộng;
   }
 
-  setHeight(height) {
-    this.height = height;
+  setHeight(chiều cao) {
+    this.height = chiều cao;
   }
 
   getArea() {
-    return this.width * this.height;
+    trả về this.width * this.height;
   }
 }
 
-class Square extends Rectangle {
+lớp Hình vuông mở rộng Hình chữ nhật {
   setWidth(width) {
-    this.width = width;
-    this.height = width;
+    this.width = chiều rộng;
+    this.height = chiều rộng;
   }
 
-  setHeight(height) {
-    this.width = height;
-    this.height = height;
+  setHeight(chiều cao) {
+    this.width = chiều cao;
+    this.height = chiều cao;
   }
 }
 
-function renderLargeRectangles(rectangles) {
-  rectangles.forEach(rectangle => {
-    rectangle.setWidth(4);
-    rectangle.setHeight(5);
-    const area = rectangle.getArea(); // BAD: Returns 25 for Square. Should be 20.
-    rectangle.render(area);
+hàm renderLargeRectangles(hình chữ nhật) {
+  hình chữ nhật.forEach(hình chữ nhật => {
+    hình chữ nhật.setWidth(4);
+    hình chữ nhật.setHeight(5);
+    diện tích const = hình chữ nhật.getArea(); // BAD: Trả về 25 cho Square. Đáng lẽ phải là 20.
+    hình chữ nhật.render(diện tích);
   });
 }
 
-const rectangles = [new Rectangle(), new Rectangle(), new Square()];
-renderLargeRectangles(rectangles);
+const hình chữ nhật = [Hình chữ nhật mới(), Hình chữ nhật mới(), Hình vuông mới()];
+renderLargeRectangles(hình chữ nhật);
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class Shape {
-  setColor(color) {
+lớp Hình dạng {
+  setColor(màu) {
     // ...
   }
 
-  render(area) {
+  kết xuất (khu vực) {
     // ...
   }
 }
 
-class Rectangle extends Shape {
-  constructor(width, height) {
-    super();
-    this.width = width;
-    this.height = height;
+lớp Hình chữ nhật mở rộng Hình dạng {
+  hàm tạo (chiều rộng, chiều cao) {
+    siêu();
+    this.width = chiều rộng;
+    this.height = chiều cao;
   }
 
   getArea() {
-    return this.width * this.height;
+    trả về this.width * this.height;
   }
 }
 
-class Square extends Shape {
-  constructor(length) {
-    super();
-    this.length = length;
+lớp Quảng trường mở rộng Hình dạng {
+  hàm tạo (độ dài) {
+    siêu();
+    this.length = chiều dài;
   }
 
   getArea() {
-    return this.length * this.length;
+    trả về this.length * this.length;
   }
 }
 
-function renderLargeShapes(shapes) {
-  shapes.forEach(shape => {
-    const area = shape.getArea();
-    shape.render(area);
+hàm renderLargeShapes(hình dạng) {
+  hình dạng.forEach(hình dạng => {
+    diện tích const = hình dạng.getArea();
+    hình dạng.render(khu vực);
   });
 }
 
-const shapes = [new Rectangle(4, 5), new Rectangle(4, 5), new Square(5)];
-renderLargeShapes(shapes);
+const hình = [Hình chữ nhật mới (4, 5), Hình chữ nhật mới (4, 5), Hình vuông mới (5)];
+renderLargeShapes(hình);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Interface Segregation Principle (ISP)
+### Nguyên tắc phân chia giao diện (ISP)
 
-JavaScript doesn't have interfaces so this principle doesn't apply as strictly
-as others. However, it's important and relevant even with JavaScript's lack of
-type system.
+JavaScript không có giao diện nên nguyên tắc này không được áp dụng nghiêm ngặt
+như những người khác. Tuy nhiên, điều này quan trọng và phù hợp ngay cả khi JavaScript thiếu
+hệ thống kiểu.
 
-ISP states that "Clients should not be forced to depend upon interfaces that
-they do not use." Interfaces are implicit contracts in JavaScript because of
-duck typing.
+ISP tuyên bố rằng "Không nên ép buộc khách hàng phụ thuộc vào các giao diện
+họ không sử dụng." Giao diện là những hợp đồng ngầm trong JavaScript vì
+gõ vịt.
 
-A good example to look at that demonstrates this principle in JavaScript is for
-classes that require large settings objects. Not requiring clients to setup
-huge amounts of options is beneficial, because most of the time they won't need
-all of the settings. Making them optional helps prevent having a
-"fat interface".
+Một ví dụ điển hình để chứng minh nguyên tắc này trong JavaScript là dành cho
+các lớp yêu cầu các đối tượng cài đặt lớn. Không yêu cầu khách hàng thiết lập
+số lượng lớn các lựa chọn là có lợi, bởi vì hầu hết thời gian họ sẽ không cần
+tất cả các cài đặt. Việc biến chúng thành tùy chọn sẽ giúp ngăn chặn việc có
+"giao diện béo".
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class DOMTraverser {
-  constructor(settings) {
-    this.settings = settings;
+lớp DOMTraverser {
+  hàm tạo (cài đặt) {
+    this.settings = cài đặt;
     this.setup();
   }
 
-  setup() {
+  cài đặt() {
     this.rootNode = this.settings.rootNode;
     this.settings.animationModule.setup();
   }
 
-  traverse() {
+  đi qua() {
     // ...
   }
 }
 
-const $ = new DOMTraverser({
+const $ = DOMTraverser mới({
   rootNode: document.getElementsByTagName("body"),
-  animationModule() {} // Most of the time, we won't need to animate when traversing.
+  animationModule() {} // Hầu hết chúng ta không cần tạo hiệu ứng khi di chuyển.
   // ...
 });
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class DOMTraverser {
-  constructor(settings) {
-    this.settings = settings;
+lớp DOMTraverser {
+  hàm tạo (cài đặt) {
+    this.settings = cài đặt;
     this.options = settings.options;
     this.setup();
   }
 
-  setup() {
+  cài đặt() {
     this.rootNode = this.settings.rootNode;
     this.setupOptions();
   }
@@ -1711,63 +1712,63 @@ class DOMTraverser {
     }
   }
 
-  traverse() {
+  đi qua() {
     // ...
   }
 }
 
-const $ = new DOMTraverser({
+const $ = DOMTraverser mới({
   rootNode: document.getElementsByTagName("body"),
-  options: {
-    animationModule() {}
+  tùy chọn: {
+    hoạt hìnhModule() {}
   }
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Dependency Inversion Principle (DIP)
+### Nguyên tắc đảo ngược phụ thuộc (DIP)
 
-This principle states two essential things:
+Nguyên tắc này nêu rõ hai điều thiết yếu:
 
-1. High-level modules should not depend on low-level modules. Both should
-   depend on abstractions.
-2. Abstractions should not depend upon details. Details should depend on
-   abstractions.
+1. Các mô-đun cấp cao không nên phụ thuộc vào các mô-đun cấp thấp. Cả hai nên
+   phụ thuộc vào sự trừu tượng.
+2. Sự trừu tượng không nên phụ thuộc vào chi tiết. Chi tiết nên phụ thuộc vào
+   trừu tượng.
 
-This can be hard to understand at first, but if you've worked with AngularJS,
-you've seen an implementation of this principle in the form of Dependency
-Injection (DI). While they are not identical concepts, DIP keeps high-level
-modules from knowing the details of its low-level modules and setting them up.
-It can accomplish this through DI. A huge benefit of this is that it reduces
-the coupling between modules. Coupling is a very bad development pattern because
-it makes your code hard to refactor.
+Điều này ban đầu có thể khó hiểu, nhưng nếu bạn đã từng làm việc với AngularJS,
+bạn đã thấy cách triển khai nguyên tắc này dưới dạng Phụ thuộc
+Tiêm (DI). Mặc dù chúng không phải là các khái niệm giống hệt nhau nhưng DIP vẫn giữ mức độ cao
+mô-đun biết chi tiết về các mô-đun cấp thấp của nó và thiết lập chúng.
+Nó có thể thực hiện điều này thông qua DI. Lợi ích to lớn của việc này là nó làm giảm
+sự ghép nối giữa các module. Khớp nối là một mô hình phát triển rất xấu bởi vì
+nó làm cho mã của bạn khó cấu trúc lại.
 
-As stated previously, JavaScript doesn't have interfaces so the abstractions
-that are depended upon are implicit contracts. That is to say, the methods
-and properties that an object/class exposes to another object/class. In the
-example below, the implicit contract is that any Request module for an
-`InventoryTracker` will have a `requestItems` method.
+Như đã nêu trước đây, JavaScript không có giao diện nên các phần trừu tượng
+phụ thuộc vào những hợp đồng ngầm. Nghĩa là, các phương pháp
+và các thuộc tính mà một đối tượng/lớp hiển thị cho một đối tượng/lớp khác. bên trong
+dụ dưới đây, hợp đồng ngầm định là bất kỳ mô-đun Yêu cầu nào cho một
+`InventoryTracker` sẽ có phương thức `requestItems`.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class InventoryRequester {
-  constructor() {
+lớp InventoryRequester {
+  người xây dựng() {
     this.REQ_METHODS = ["HTTP"];
   }
 
-  requestItem(item) {
+  requestItem(mục) {
     // ...
   }
 }
 
-class InventoryTracker {
-  constructor(items) {
-    this.items = items;
+lớp InventoryTracker {
+  hàm tạo (mục) {
+    this.items = vật phẩm;
 
-    // BAD: We have created a dependency on a specific request implementation.
-    // We should just have requestItems depend on a request method: `request`
+    // BAD: Chúng tôi đã tạo sự phụ thuộc vào việc triển khai yêu cầu cụ thể.
+    // Chúng ta chỉ nên có requestItems phụ thuộc vào phương thức yêu cầu: `request`
     this.requester = new InventoryRequester();
   }
 
@@ -1778,17 +1779,17 @@ class InventoryTracker {
   }
 }
 
-const inventoryTracker = new InventoryTracker(["apples", "bananas"]);
-inventoryTracker.requestItems();
+const InventoryTracker = new InventoryTracker(["táo", "chuối"]);
+InventoryTracker.requestItems();
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class InventoryTracker {
-  constructor(items, requester) {
-    this.items = items;
-    this.requester = requester;
+lớp InventoryTracker {
+  hàm tạo (mục, người yêu cầu) {
+    this.items = vật phẩm;
+    this.requester = người yêu cầu;
   }
 
   requestItems() {
@@ -1798,132 +1799,132 @@ class InventoryTracker {
   }
 }
 
-class InventoryRequesterV1 {
-  constructor() {
+lớp InventoryRequesterV1 {
+  người xây dựng() {
     this.REQ_METHODS = ["HTTP"];
   }
 
-  requestItem(item) {
+  requestItem(mục) {
     // ...
   }
 }
 
-class InventoryRequesterV2 {
-  constructor() {
+lớp InventoryRequesterV2 {
+  người xây dựng() {
     this.REQ_METHODS = ["WS"];
   }
 
-  requestItem(item) {
+  requestItem(mục) {
     // ...
   }
 }
 
-// By constructing our dependencies externally and injecting them, we can easily
-// substitute our request module for a fancy new one that uses WebSockets.
-const inventoryTracker = new InventoryTracker(
-  ["apples", "bananas"],
-  new InventoryRequesterV2()
+// Bằng cách xây dựng các phần phụ thuộc từ bên ngoài và đưa chúng vào, chúng ta có thể dễ dàng
+// thay thế mô-đun yêu cầu của chúng tôi bằng một mô-đun mới ưa thích sử dụng WebSockets.
+const InventoryTracker = InventoryTracker mới(
+  ["táo", "chuối"],
+  InventoryRequesterV2 mới ()
 );
-inventoryTracker.requestItems();
+InventoryTracker.requestItems();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **Testing**
+## **Thử nghiệm**
 
-Testing is more important than shipping. If you have no tests or an
-inadequate amount, then every time you ship code you won't be sure that you
-didn't break anything. Deciding on what constitutes an adequate amount is up
-to your team, but having 100% coverage (all statements and branches) is how
-you achieve very high confidence and developer peace of mind. This means that
-in addition to having a great testing framework, you also need to use a
-[good coverage tool](https://gotwarlost.github.io/istanbul/).
+Kiểm tra quan trọng hơn vận chuyển. Nếu bạn không có bài kiểm tra hoặc
+số lượng không đủ thì mỗi lần gửi mã bạn sẽ không chắc chắn rằng mình
+không phá vỡ bất cứ điều gì. Quyết định những gì cấu thành một số tiền thích hợp là tùy thuộc vào
+với nhóm của bạn, nhưng có mức độ bao phủ 100% (tất cả các câu lệnh và nhánh) là cách
+bạn đạt được sự tự tin rất cao và sự an tâm của nhà phát triển. Điều này có nghĩa rằng
+Ngoài việc có một framework thử nghiệm tuyệt vời, bạn cũng cần sử dụng một
+[công cụ đưa tin tốt](https://gotwarlost.github.io/istanbul/).
 
-There's no excuse to not write tests. There are [plenty of good JS test frameworks](https://jstherightway.org/#testing-tools), so find one that your team prefers.
-When you find one that works for your team, then aim to always write tests
-for every new feature/module you introduce. If your preferred method is
-Test Driven Development (TDD), that is great, but the main point is to just
-make sure you are reaching your coverage goals before launching any feature,
-or refactoring an existing one.
+Không có lý do gì để không viết bài kiểm tra. Có [rất nhiều khung kiểm tra JS tốt](https://jstherightway.org/#testing-tools), vì vậy hãy tìm một khung mà nhóm của bạn thích.
+Khi bạn tìm thấy một cách phù hợp với nhóm của mình, hãy đặt mục tiêu luôn viết bài kiểm tra
+cho mọi tính năng/mô-đun mới mà bạn giới thiệu. Nếu phương pháp ưa thích của bạn là
+Phát triển dựa trên thử nghiệm (TDD), điều đó thật tuyệt, nhưng điểm chính là chỉ
+đảm bảo bạn đang đạt được mục tiêu phủ sóng của mình trước khi khởi chạy bất kỳ tính năng nào,
+hoặc tái cấu trúc một cái hiện có.
 
-### Single concept per test
+### Một khái niệm cho mỗi bài kiểm tra
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-import assert from "assert";
+xác nhận nhập khẩu từ "khẳng định";
 
-describe("MomentJS", () => {
-  it("handles date boundaries", () => {
-    let date;
+mô tả("MomentJS", () => {
+  it("xử lý ranh giới ngày", () => {
+    hãy hẹn hò;
 
-    date = new MomentJS("1/1/2015");
+    ngày = Khoảnh khắc mớiJS ("1/1/2015");
     date.addDays(30);
-    assert.equal("1/31/2015", date);
+    khẳng định.equal ("31/1/2015", ngày);
 
-    date = new MomentJS("2/1/2016");
+    ngày = Khoảnh khắc mớiJS ("1/2/2016");
     date.addDays(28);
-    assert.equal("02/29/2016", date);
+    khẳng định.equal ("29/02/2016", ngày);
 
-    date = new MomentJS("2/1/2015");
+    ngày = Khoảnh khắc mớiJS ("1/2/2015");
     date.addDays(28);
-    assert.equal("03/01/2015", date);
+    khẳng định.equal ("03/01/2015", ngày);
   });
 });
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-import assert from "assert";
+xác nhận nhập khẩu từ "khẳng định";
 
-describe("MomentJS", () => {
-  it("handles 30-day months", () => {
+mô tả("MomentJS", () => {
+  it("xử lý các tháng có 30 ngày", () => {
     const date = new MomentJS("1/1/2015");
     date.addDays(30);
-    assert.equal("1/31/2015", date);
+    khẳng định.equal ("31/1/2015", ngày);
   });
 
-  it("handles leap year", () => {
-    const date = new MomentJS("2/1/2016");
+  it("xử lý năm nhuận", () => {
+    const date = MomentJS mới("1/2/2016");
     date.addDays(28);
-    assert.equal("02/29/2016", date);
+    khẳng định.equal ("29/02/2016", ngày);
   });
 
-  it("handles non-leap year", () => {
-    const date = new MomentJS("2/1/2015");
+  it("xử lý năm không nhuận", () => {
+    const date = MomentJS mới("1/2/2015");
     date.addDays(28);
-    assert.equal("03/01/2015", date);
+    khẳng định.equal ("03/01/2015", ngày);
   });
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **Concurrency**
+## **Đồng thời**
 
-### Use Promises, not callbacks
+### Sử dụng Lời hứa chứ không phải lệnh gọi lại
 
-Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
-Promises are a built-in global type. Use them!
+Lệnh gọi lại không rõ ràng và chúng gây ra tình trạng lồng nhau quá mức. Với ES2015/ES6,
+Lời hứa là một loại toàn cầu được tích hợp sẵn. Sử dụng chúng!
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-import { get } from "request";
-import { writeFile } from "fs";
+nhập {get } từ "yêu cầu";
+nhập {writeFile } từ "fs";
 
-get(
+lấy(
   "https://en.wikipedia.org/wiki/Robert_Cecil_Martin",
-  (requestErr, response, body) => {
-    if (requestErr) {
+  (requestErr, phản hồi, nội dung) => {
+    nếu (requestErr) {
       console.error(requestErr);
-    } else {
+    } khác {
       writeFile("article.html", body, writeErr => {
-        if (writeErr) {
+        nếu (writeErr) {
           console.error(writeErr);
-        } else {
-          console.log("File written");
+        } khác {
+          console.log("Tập tin đã được ghi");
         }
       });
     }
@@ -1931,66 +1932,66 @@ get(
 );
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-import { get } from "request-promise";
-import { writeFile } from "fs-extra";
+nhập {get } từ "request-promise";
+nhập {writeFile } từ "fs-extra";
 
 get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
-  .then(body => {
+  .then(thân => {
     return writeFile("article.html", body);
   })
   .then(() => {
-    console.log("File written");
+    console.log("Tập tin đã được ghi");
   })
   .catch(err => {
     console.error(err);
   });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Async/Await are even cleaner than Promises
+### Async/Await thậm chí còn sạch hơn Promises
 
-Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
-which offer an even cleaner solution. All you need is a function that is prefixed
-in an `async` keyword, and then you can write your logic imperatively without
-a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 features
-today!
+Lời hứa là một giải pháp thay thế rất rõ ràng cho lệnh gọi lại, nhưng ES2017/ES8 mang đến sự bất đồng bộ và chờ đợi
+cung cấp một giải pháp thậm chí còn sạch hơn. Tất cả những gì bạn cần là một hàm có tiền tố
+trong từ khóa `async`, sau đó bạn có thể viết logic của mình một cách bắt buộc mà không cần
+một chuỗi hàm 'then`. Sử dụng cái này nếu bạn có thể tận dụng các tính năng của ES2017/ES8
+Hôm nay!
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-import { get } from "request-promise";
-import { writeFile } from "fs-extra";
+nhập {get } từ "request-promise";
+nhập {writeFile } từ "fs-extra";
 
 get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
-  .then(body => {
+  .then(thân => {
     return writeFile("article.html", body);
   })
   .then(() => {
-    console.log("File written");
+    console.log("Tập tin đã được ghi");
   })
   .catch(err => {
     console.error(err);
   });
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-import { get } from "request-promise";
-import { writeFile } from "fs-extra";
+nhập {get } từ "request-promise";
+nhập {writeFile } từ "fs-extra";
 
-async function getCleanCodeArticle() {
-  try {
-    const body = await get(
+hàm không đồng bộ getCleanCodeArticle() {
+  thử {
+    const body = đang chờ lấy(
       "https://en.wikipedia.org/wiki/Robert_Cecil_Martin"
     );
-    await writeFile("article.html", body);
-    console.log("File written");
-  } catch (err) {
+    đang chờ writeFile("article.html", body);
+    console.log("Tập tin đã được ghi");
+  } bắt (lỗi) {
     console.error(err);
   }
 }
@@ -1998,162 +1999,162 @@ async function getCleanCodeArticle() {
 getCleanCodeArticle()
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **Error Handling**
+## **Xử lý lỗi**
 
-Thrown errors are a good thing! They mean the runtime has successfully
-identified when something in your program has gone wrong and it's letting
-you know by stopping function execution on the current stack, killing the
-process (in Node), and notifying you in the console with a stack trace.
+Lỗi ném là một điều tốt! Họ có nghĩa là thời gian chạy đã thành công
+được xác định khi có điều gì đó trong chương trình của bạn gặp trục trặc và nó cho phép
+bạn biết bằng cách dừng thực thi hàm trên ngăn xếp hiện tại, hủy bỏ
+xử lý (trong Nút) và thông báo cho bạn trong bảng điều khiển bằng dấu vết ngăn xếp.
 
-### Don't ignore caught errors
+### Đừng bỏ qua các lỗi đã phát hiện
 
-Doing nothing with a caught error doesn't give you the ability to ever fix
-or react to said error. Logging the error to the console (`console.log`)
-isn't much better as often times it can get lost in a sea of things printed
-to the console. If you wrap any bit of code in a `try/catch` it means you
-think an error may occur there and therefore you should have a plan,
-or create a code path, for when it occurs.
+Không làm gì với một lỗi đã phát hiện sẽ không mang lại cho bạn khả năng sửa chữa
+hoặc phản ứng với lỗi đã nói. Ghi lỗi vào bảng điều khiển (`console.log`)
+không tốt hơn nhiều vì đôi khi nó có thể bị lạc trong một biển thứ được in
+đến bảng điều khiển. Nếu bạn bọc bất kỳ đoạn mã nào trong `try/catch` thì điều đó có nghĩa là bạn
+nghĩ rằng có thể xảy ra lỗi ở đó và do đó bạn nên có kế hoạch,
+hoặc tạo đường dẫn mã khi nó xảy ra.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-try {
+thử {
   functionThatMightThrow();
-} catch (error) {
-  console.log(error);
+} bắt (lỗi) {
+  console.log(lỗi);
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-try {
+thử {
   functionThatMightThrow();
-} catch (error) {
-  // One option (more noisy than console.log):
-  console.error(error);
-  // Another option:
-  notifyUserOfError(error);
-  // Another option:
-  reportErrorToService(error);
-  // OR do all three!
+} bắt (lỗi) {
+  // Một tùy chọn (ồn ào hơn console.log):
+  console.error(lỗi);
+  // Một lựa chọn khác:
+  thông báoUserOfError(lỗi);
+  // Một lựa chọn khác:
+  báo cáoErrorToService(lỗi);
+  // HOẶC làm cả ba!
 }
 ```
 
-### Don't ignore rejected promises
+### Đừng bỏ qua những lời hứa bị từ chối
 
-For the same reason you shouldn't ignore caught errors
-from `try/catch`.
+Vì lý do tương tự, bạn không nên bỏ qua các lỗi đã phát hiện
+từ `thử/bắt`.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-getdata()
-  .then(data => {
+lấy dữ liệu()
+  .then(dữ liệu => {
     functionThatMightThrow(data);
   })
-  .catch(error => {
-    console.log(error);
+  .catch(lỗi => {
+    console.log(lỗi);
   });
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-getdata()
-  .then(data => {
+lấy dữ liệu()
+  .then(dữ liệu => {
     functionThatMightThrow(data);
   })
-  .catch(error => {
-    // One option (more noisy than console.log):
-    console.error(error);
-    // Another option:
-    notifyUserOfError(error);
-    // Another option:
-    reportErrorToService(error);
-    // OR do all three!
+  .catch(lỗi => {
+    // Một tùy chọn (ồn ào hơn console.log):
+    console.error(lỗi);
+    // Một lựa chọn khác:
+    thông báoUserOfError(lỗi);
+    // Một lựa chọn khác:
+    báo cáoErrorToService(lỗi);
+    // HOẶC làm cả ba!
   });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **Formatting**
+## **Định dạng**
 
-Formatting is subjective. Like many rules herein, there is no hard and fast
-rule that you must follow. The main point is DO NOT ARGUE over formatting.
-There are [tons of tools](https://standardjs.com/rules.html) to automate this.
-Use one! It's a waste of time and money for engineers to argue over formatting.
+Định dạng là chủ quan. Giống như nhiều quy tắc ở đây, không có quy tắc cứng và nhanh
+quy tắc mà bạn phải tuân theo. Điểm chính là KHÔNG TRANH LUẬN về định dạng.
+Có [rất nhiều công cụ](https://standardjs.com/rules.html) để tự động hóa việc này.
+Sử dụng một cái! Việc các kỹ sư tranh cãi về định dạng là lãng phí thời gian và tiền bạc.
 
-For things that don't fall under the purview of automatic formatting
-(indentation, tabs vs. spaces, double vs. single quotes, etc.) look here
-for some guidance.
+Đối với những thứ không thuộc phạm vi định dạng tự động
+(thụt lề, tab so với dấu cách, dấu ngoặc kép so với dấu ngoặc đơn, v.v.) hãy xem tại đây
+để được hướng dẫn.
 
-### Use consistent capitalization
+### Sử dụng cách viết hoa nhất quán
 
-JavaScript is untyped, so capitalization tells you a lot about your variables,
-functions, etc. These rules are subjective, so your team can choose whatever
-they want. The point is, no matter what you all choose, just be consistent.
+JavaScript không được gõ, vì vậy cách viết hoa cho bạn biết nhiều điều về các biến của bạn,
+chức năng, v.v. Những quy tắc này mang tính chủ quan, vì vậy nhóm của bạn có thể chọn bất cứ điều gì
+họ muốn. Vấn đề là, bất kể bạn chọn gì, chỉ cần nhất quán.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-const DAYS_IN_WEEK = 7;
-const daysInMonth = 30;
+hằng NGÀY_IN_WEEK = 7;
+hằng số ngàyInMonth = 30;
 
-const songs = ["Back In Black", "Stairway to Heaven", "Hey Jude"];
-const Artists = ["ACDC", "Led Zeppelin", "The Beatles"];
+const song = ["Back In Black", "Nấc thang lên thiên đường", "Hey Jude"];
+const Nghệ sĩ = ["ACDC", "Led Zeppelin", "The Beatles"];
 
-function eraseDatabase() {}
-function restore_database() {}
+hàm erasDatabase() {}
+hàm khôi phục_database() {}
 
-class animal {}
-class Alpaca {}
+lớp động vật {}
+lớp Alpaca {}
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-const DAYS_IN_WEEK = 7;
-const DAYS_IN_MONTH = 30;
+hằng NGÀY_IN_WEEK = 7;
+hằng NGÀY_IN_MONTH = 30;
 
-const SONGS = ["Back In Black", "Stairway to Heaven", "Hey Jude"];
-const ARTISTS = ["ACDC", "Led Zeppelin", "The Beatles"];
+const SONGS = ["Trở lại màu đen", "Nấc thang lên thiên đường", "Này Jude"];
+const NGHỆ SĨ = ["ACDC", "Led Zeppelin", "The Beatles"];
 
-function eraseDatabase() {}
-function restoreDatabase() {}
+hàm erasDatabase() {}
+hàm khôi phụcDatabase() {}
 
-class Animal {}
-class Alpaca {}
+lớp Động vật {}
+lớp Alpaca {}
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Function callers and callees should be close
+### Người gọi hàm và người được gọi phải thân thiết
 
-If a function calls another, keep those functions vertically close in the source
-file. Ideally, keep the caller right above the callee. We tend to read code from
-top-to-bottom, like a newspaper. Because of this, make your code read that way.
+Nếu một hàm gọi hàm khác, hãy giữ các hàm đó ở gần theo chiều dọc trong nguồn
+tài liệu. Lý tưởng nhất là giữ người gọi ngay phía trên người được gọi. Chúng ta có xu hướng đọc mã từ
+từ trên xuống dưới, giống như một tờ báo. Vì điều này, hãy làm cho mã của bạn đọc theo cách đó.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-class PerformanceReview {
-  constructor(employee) {
-    this.employee = employee;
+lớp Đánh giá hiệu suất {
+  nhà xây dựng (nhân viên) {
+    this.employee = nhân viên;
   }
 
-  lookupPeers() {
-    return db.lookup(this.employee, "peers");
+  tra cứuPeers() {
+    return db.lookup(this.employee, "peer");
   }
 
-  lookupManager() {
-    return db.lookup(this.employee, "manager");
+  tra cứuManager() {
+    return db.lookup(this.employee, "người quản lý");
   }
 
   getPeerReviews() {
-    const peers = this.lookupPeers();
+    const ngang hàng = this.lookupPeers();
     // ...
   }
 
@@ -2172,16 +2173,16 @@ class PerformanceReview {
   }
 }
 
-const review = new PerformanceReview(employee);
+const review = new PerformanceReview(nhân viên);
 review.perfReview();
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-class PerformanceReview {
-  constructor(employee) {
-    this.employee = employee;
+lớp Đánh giá hiệu suất {
+  nhà xây dựng (nhân viên) {
+    this.employee = nhân viên;
   }
 
   perfReview() {
@@ -2191,20 +2192,20 @@ class PerformanceReview {
   }
 
   getPeerReviews() {
-    const peers = this.lookupPeers();
+    const ngang hàng = this.lookupPeers();
     // ...
   }
 
-  lookupPeers() {
-    return db.lookup(this.employee, "peers");
+  tra cứuPeers() {
+    return db.lookup(this.employee, "peer");
   }
 
   getManagerReview() {
     const manager = this.lookupManager();
   }
 
-  lookupManager() {
-    return db.lookup(this.employee, "manager");
+  tra cứuManager() {
+    return db.lookup(this.employee, "người quản lý");
   }
 
   getSelfReview() {
@@ -2212,64 +2213,64 @@ class PerformanceReview {
   }
 }
 
-const review = new PerformanceReview(employee);
+const review = new PerformanceReview(nhân viên);
 review.perfReview();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## **Comments**
+## **Bình luận**
 
-### Only comment things that have business logic complexity.
+### Chỉ bình luận những thứ có logic nghiệp vụ phức tạp.
 
-Comments are an apology, not a requirement. Good code _mostly_ documents itself.
+Bình luận là một lời xin lỗi, không phải là một yêu cầu. Mã tốt _chủ yếu_ là tài liệu.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-function hashIt(data) {
-  // The hash
-  let hash = 0;
+hàm hashIt(dữ liệu) {
+  // Hàm băm
+  hãy để hàm băm = 0;
 
-  // Length of string
-  const length = data.length;
+  // Độ dài của chuỗi
+  độ dài const = data.length;
 
-  // Loop through every character in data
+  // Lặp qua từng ký tự trong dữ liệu
   for (let i = 0; i < length; i++) {
-    // Get character code.
+    // Lấy mã ký tự.
     const char = data.charCodeAt(i);
-    // Make the hash
-    hash = (hash << 5) - hash + char;
-    // Convert to 32-bit integer
-    hash &= hash;
+    // Tạo hàm băm
+    băm = (băm << 5) - băm + char;
+    // Chuyển đổi thành số nguyên 32 bit
+    băm &= băm;
   }
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function hashIt(data) {
-  let hash = 0;
-  const length = data.length;
+hàm hashIt(dữ liệu) {
+  hãy để hàm băm = 0;
+  độ dài const = data.length;
 
   for (let i = 0; i < length; i++) {
     const char = data.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
+    băm = (băm << 5) - băm + char;
 
-    // Convert to 32-bit integer
-    hash &= hash;
+    // Chuyển đổi thành số nguyên 32 bit
+    băm &= băm;
   }
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Don't leave commented out code in your codebase
+### Đừng để lại mã đã nhận xét trong cơ sở mã của bạn
 
-Version control exists for a reason. Leave old code in your history.
+Kiểm soát phiên bản tồn tại là có lý do. Để lại mã cũ trong lịch sử của bạn.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
 doStuff();
@@ -2278,109 +2279,109 @@ doStuff();
 // doSoMuchStuff();
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
 doStuff();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Don't have journal comments
+### Không có bình luận tạp chí
 
-Remember, use version control! There's no need for dead code, commented code,
-and especially journal comments. Use `git log` to get history!
+Hãy nhớ, sử dụng kiểm soát phiên bản! Không cần mã chết, mã nhận xét,
+và đặc biệt là các bình luận tạp chí. Sử dụng `git log` để lấy lịch sử!
 
-**Bad:**
+**Xấu:**
 
 ```javascript
 /**
- * 2016-12-20: Removed monads, didn't understand them (RM)
- * 2016-10-01: Improved using special monads (JP)
- * 2016-02-03: Removed type-checking (LI)
- * 2015-03-14: Added combine with type-checking (JR)
+ * 20-12-2016: Loại bỏ monad, không hiểu chúng (RM)
+ * 01-10-2016: Được cải tiến bằng cách sử dụng các đơn nguyên đặc biệt (JP)
+ * 03-02-2016: Loại bỏ kiểm tra loại (LI)
+ * 14-03-2015: Đã thêm kết hợp với kiểm tra loại (JR)
  */
-function combine(a, b) {
-  return a + b;
+hàm kết hợp(a, b) {
+  trả lại a + b;
 }
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
-function combine(a, b) {
-  return a + b;
+hàm kết hợp(a, b) {
+  trả lại a + b;
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-### Avoid positional markers
+### Tránh đánh dấu vị trí
 
-They usually just add noise. Let the functions and variable names along with the
-proper indentation and formatting give the visual structure to your code.
+Họ thường chỉ thêm tiếng ồn. Đặt các hàm và tên biến cùng với
+thụt lề và định dạng thích hợp sẽ mang lại cấu trúc trực quan cho mã của bạn.
 
-**Bad:**
+**Xấu:**
 
 ```javascript
-////////////////////////////////////////////////////////////////////////////////
-// Scope Model Instantiation
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////// //////////////////////////////
+// Khởi tạo mô hình phạm vi
+///////////////////////////////////////////////////////////////// //////////////////////////////
 $scope.model = {
-  menu: "foo",
-  nav: "bar"
+  thực đơn: "foo",
+  điều hướng: "thanh"
 };
 
-////////////////////////////////////////////////////////////////////////////////
-// Action setup
-////////////////////////////////////////////////////////////////////////////////
-const actions = function() {
+///////////////////////////////////////////////////////////////// //////////////////////////////
+// Thiết lập hành động
+///////////////////////////////////////////////////////////////// //////////////////////////////
+hành động const = function() {
   // ...
 };
 ```
 
-**Good:**
+**Tốt:**
 
 ```javascript
 $scope.model = {
-  menu: "foo",
-  nav: "bar"
+  thực đơn: "foo",
+  điều hướng: "thanh"
 };
 
-const actions = function() {
+hành động const = function() {
   // ...
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
 
-## Translation
+## Dịch
 
-This is also available in other languages:
+Điều này cũng có sẵn trong các ngôn ngữ khác:
 
-- ![am](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Armenia.png) **Armenian**: [hanumanum/clean-code-javascript/](https://github.com/hanumanum/clean-code-javascript)
-- ![bd](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Bangladesh.png) **Bangla(বাংলা)**: [InsomniacSabbir/clean-code-javascript/](https://github.com/InsomniacSabbir/clean-code-javascript/)
-- ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Brazilian Portuguese**: [fesnt/clean-code-javascript](https://github.com/fesnt/clean-code-javascript)
-- ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Simplified Chinese**:
+- ![am](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Armenia.png) **Armenia**: [hanumanum/clean-code-javascript/] (https://github.com/hanumanum/clean-code-javascript)
+- ![bd](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Bangladesh.png) **Bangla(বাংলা)**: [InsomniacSabbir/clean-code- javascript/](https://github.com/InsomniacSabbir/clean-code-javascript/)
+- ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Tiếng Bồ Đào Nha Brazil**: [fesnt/clean-code-javascript] (https://github.com/fesnt/clean-code-javascript)
+- ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Tiếng Trung giản thể**:
   - [alivebao/clean-code-js](https://github.com/alivebao/clean-code-js)
   - [beginor/clean-code-javascript](https://github.com/beginor/clean-code-javascript)
-- ![tw](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Taiwan.png) **Traditional Chinese**: [AllJointTW/clean-code-javascript](https://github.com/AllJointTW/clean-code-javascript)
-- ![fr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/France.png) **French**: [eugene-augier/clean-code-javascript-fr](https://github.com/eugene-augier/clean-code-javascript-fr)
-- ![de](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Germany.png) **German**: [marcbruederlin/clean-code-javascript](https://github.com/marcbruederlin/clean-code-javascript)
-- ![id](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Indonesia.png) **Indonesia**: [andirkh/clean-code-javascript/](https://github.com/andirkh/clean-code-javascript/)
-- ![it](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Italy.png) **Italian**: [frappacchio/clean-code-javascript/](https://github.com/frappacchio/clean-code-javascript/)
-- ![ja](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Japan.png) **Japanese**: [mitsuruog/clean-code-javascript/](https://github.com/mitsuruog/clean-code-javascript/)
-- ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) **Korean**: [qkraudghgh/clean-code-javascript-ko](https://github.com/qkraudghgh/clean-code-javascript-ko)
-- ![pl](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Poland.png) **Polish**: [greg-dev/clean-code-javascript-pl](https://github.com/greg-dev/clean-code-javascript-pl)
-- ![ru](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Russia.png) **Russian**:
+- ![tw](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Taiwan.png) **Tiếng Trung phồn thể**: [AllJointTW/clean-code-javascript] (https://github.com/AllJointTW/clean-code-javascript)
+- ![fr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/France.png) **Tiếng Pháp**: [eugene-augier/clean-code-javascript -fr](https://github.com/eugene-augier/clean-code-javascript-fr)
+- ![de](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Đức.png) **Tiếng Đức**: [marcbruederlin/clean-code-javascript]( https://github.com/marcbruederlin/clean-code-javascript)
+- ![id](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Indonesia.png) **Indonesia**: [andirkh/clean-code-javascript/] (https://github.com/andirkh/clean-code-javascript/)
+- ![it](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Italy.png) **Tiếng Ý**: [frappacchio/clean-code-javascript/] (https://github.com/frappacchio/clean-code-javascript/)
+- ![ja](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/ Japan.png) **Tiếng Nhật**: [mitsuruog/clean-code-javascript/] (https://github.com/mitsuruog/clean-code-javascript/)
+- ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) **Tiếng Hàn**: [qkraudghgh/clean-code-javascript -ko](https://github.com/qkraudghgh/clean-code-javascript-ko)
+- ![pl](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Poland.png) **Tiếng Ba Lan**: [greg-dev/clean-code-javascript -pl](https://github.com/greg-dev/clean-code-javascript-pl)
+- ![ru](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Nga.png) **Tiếng Nga**:
   - [BoryaMogila/clean-code-javascript-ru/](https://github.com/BoryaMogila/clean-code-javascript-ru/)
   - [maksugr/clean-code-javascript](https://github.com/maksugr/clean-code-javascript)
-- ![es](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Spain.png) **Spanish**: [tureey/clean-code-javascript](https://github.com/tureey/clean-code-javascript)
-- ![es](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Uruguay.png) **Spanish**: [andersontr15/clean-code-javascript](https://github.com/andersontr15/clean-code-javascript-es)
-- ![rs](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Serbia.png) **Serbian**: [doskovicmilos/clean-code-javascript/](https://github.com/doskovicmilos/clean-code-javascript)
-- ![tr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Turkey.png) **Turkish**: [bsonmez/clean-code-javascript](https://github.com/bsonmez/clean-code-javascript/tree/turkish-translation)
-- ![ua](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Ukraine.png) **Ukrainian**: [mindfr1k/clean-code-javascript-ua](https://github.com/mindfr1k/clean-code-javascript-ua)
-- ![vi](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Vietnam.png) **Vietnamese**: [hienvd/clean-code-javascript/](https://github.com/hienvd/clean-code-javascript/)
-- ![ir](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Iran.png) **Persian**: [hamettio/clean-code-javascript](https://github.com/hamettio/clean-code-javascript)
+- ![es](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Spain.png) **Tiếng Tây Ban Nha**: [tureey/clean-code-javascript]( https://github.com/tureey/clean-code-javascript)
+- ![es](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Uruguay.png) **Tiếng Tây Ban Nha**: [andersontr15/clean-code-javascript]( https://github.com/andersontr15/clean-code-javascript-es)
+- ![rs](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Serbia.png) **Serbia**: [doskovicmilos/clean-code-javascript/] (https://github.com/doskovicmilos/clean-code-javascript)
+- ![tr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Turkey.png) **Tiếng Thổ Nhĩ Kỳ**: [bsonmez/clean-code-javascript]( https://github.com/bsonmez/clean-code-javascript/tree/turkish-translation)
+- ![ua](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Ukraine.png) **Tiếng Ukraina**: [mindfr1k/clean-code-javascript-ua ](https://github.com/mindfr1k/clean-code-javascript-ua)
+- ![vi](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/vietnam.png) **Tiếng Việt**: [hienvd/clean-code-javascript/] (https://github.com/hienvd/clean-code-javascript/)
+- ![ir](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Iran.png) **Tiếng Ba Tư**: [hamettio/clean-code-javascript]( https://github.com/hamettio/clean-code-javascript)
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ quay lại đầu trang](#table-of-contents)**
